@@ -2,10 +2,7 @@ package me.diax.diaxbot.bots;
 
 import me.diax.diaxbot.lib.bots.DiaxBot;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -17,30 +14,29 @@ public class DiaxIRCBot extends DiaxBot {
     private final String channel;
     private final int port;
 
-    public DiaxIRCBot(String server, String channel, int port) throws Exception {
+    public DiaxIRCBot(String server, String channel, int port) {
         this.server = server;
         this.channel = channel;
         this.port = port;
-        this.init();
+        try {
+            this.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void init() throws Exception {
+    private void init() throws IOException {
         Socket socket = new Socket(server, port);
-        socket.setKeepAlive(true);
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-        writer.write("NICK Diax\r\n");
+        writer.write("NICK 0 0 Diax\r\n");
         writer.write("USER Diax * : Java IRC Bot\r\n");
         writer.flush();
 
         String line;
         while ((line = reader.readLine()) != null) {
-
-            if (line.indexOf("004") >= 0) {
-                break;
-            } else if (line.indexOf("433") >= 0) {
-                System.out.println("Nickname is already in use.");
+            if (line.contains("433")) {
+                System.err.println("Nickname is already in use.");
                 return;
             }
         }
