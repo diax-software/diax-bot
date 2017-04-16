@@ -26,11 +26,12 @@ public class DiaxIRCBot extends DiaxBot {
 
     public void init() throws Exception {
         Socket socket = new Socket(server, port);
+        socket.setKeepAlive(true);
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         writer.write("NICK Diax\r\n");
-        writer.write("USER Diax : It's just getting started.\r\n");
+        writer.write("USER Diax * : Java IRC Bot\r\n");
         writer.flush();
 
         String line;

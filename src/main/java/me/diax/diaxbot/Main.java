@@ -12,6 +12,6 @@ public class Main {
     }
 
     public void main() throws Exception {
-        new DiaxIRCBot("irc.domirc.net", "#diax.me", 6667);
+        DiaxIRCBot bot = new DiaxIRCBot("irc.domirc.net", "#diax.me", 6697);
     }
 }
