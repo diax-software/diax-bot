@@ -65,7 +65,7 @@ public class DiaxIRCBot extends DiaxAbstractBot {
     private DiaxIRCBot read() throws IOException {
         String line = reader.readLine();
         if (line != null) {
-            if (line.contains(" PING ")) {
+            if (line.startsWith("PING")) {
                 writeMessage("PONG" + line.substring(5));
             } else if (IRCPatterns.SYSTEM_EVENT_PATTERN.matcher(line).find()) {
                 Matcher m = IRCPatterns.SYSTEM_EVENT_PATTERN.matcher(line);
