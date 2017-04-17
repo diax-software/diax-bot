@@ -32,4 +32,13 @@ public class SystemEvent extends IRCEvent {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return "SystemEvent{" +
+                "server='" + server + '\'' +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

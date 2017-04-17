@@ -1,28 +1,26 @@
 package me.diax.diaxbot.events;
 
-import me.diax.diaxbot.bots.DiaxIRCBot;
 import me.diax.diaxbot.IRCEvent;
+import me.diax.diaxbot.bots.DiaxIRCBot;
 
 import java.util.regex.Matcher;
 
 /**
- * Created by NachtRaben on 4/16/2017.
+ * Created by NachtRaben on 4/17/2017.
  */
-public class ChannelMessageEvent extends IRCEvent {
-
+public class UserJoinEvent extends IRCEvent {
+    
     private String user;
     private String client;
     private String address;
     private String channel;
-    private String message;
-    
-    public ChannelMessageEvent(DiaxIRCBot ircBot, Matcher response) {
+
+    public UserJoinEvent(DiaxIRCBot ircBot, Matcher response) {
         super(ircBot, response);
         user = response.group(1);
         client = response.group(2);
         address = response.group(3);
         channel = response.group(4);
-        message = response.group(5);
     }
 
     public String getUser() {
@@ -41,12 +39,8 @@ public class ChannelMessageEvent extends IRCEvent {
         return channel;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
     @Override
     public String toString() {
-        return "[MESSAGE][" + channel + "]" + user + ": " + message;
+        return "[JOIN]: User, " + user + ", joined " + channel;
     }
 }

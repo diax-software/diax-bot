@@ -67,15 +67,9 @@ public class DiaxIRCBot extends DiaxAbstractBot {
         if (line != null) {
             if (line.startsWith("PING")) {
                 writeMessage("PONG" + line.substring(5));
-            } else if (IRCPatterns.SYSTEM_EVENT_PATTERN.matcher(line).find()) {
-                Matcher m = IRCPatterns.SYSTEM_EVENT_PATTERN.matcher(line);
-                if (m.find()) {
-                    SystemEvent event = new SystemEvent(this, m);
-                    eventHandlers.forEach(eh -> eh.onSystemEvent(event));
-                }
-            } else {
-                System.err.println("Unhandled Event: " + line);
             }
+            if(!IRCPatterns.handle(this, line))
+                System.out.println("Unhandled Event: " + line);
         }
         return this;
     }
