@@ -1,8 +1,8 @@
 package me.diax.diaxbot;
 
 
-import me.diax.diaxbot.events.ChannelMessageEvent;
-import me.diax.diaxbot.events.SystemEvent;
+import me.diax.diaxbot.irc.ChannelMessageEvent;
+import me.diax.diaxbot.irc.SystemEvent;
 
 /**
  * Created by NachtRaben on 4/16/2017.

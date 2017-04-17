@@ -1,7 +1,7 @@
-package me.diax.diaxbot.events;
+package me.diax.diaxbot.irc;
 
 import me.diax.diaxbot.bots.DiaxIRCBot;
-import me.diax.diaxbot.IRCEvent;
+import me.diax.diaxbot.irc.IRCEvent;
 
 import java.util.regex.Matcher;
 

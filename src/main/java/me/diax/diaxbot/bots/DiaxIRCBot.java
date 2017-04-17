@@ -1,8 +1,8 @@
 package me.diax.diaxbot.bots;
 
 import me.diax.diaxbot.EventHandler;
-import me.diax.diaxbot.IRCPatterns;
-import me.diax.diaxbot.events.SystemEvent;
+import me.diax.diaxbot.irc.IRCPatterns;
+import me.diax.diaxbot.irc.SystemEvent;
 
 import java.io.*;
 import java.net.Socket;
@@ -103,6 +103,7 @@ public class DiaxIRCBot extends DiaxAbstractBot {
             if (this.channels.contains(channel))
                 throw new IllegalArgumentException("You have already joined " + channel);
             this.channels.add(channel);
+            System.out.println("Joining " + channel);
             writeMessage("JOIN " + channel).writeToChannel("Hello!", channel);
         }
         return this;

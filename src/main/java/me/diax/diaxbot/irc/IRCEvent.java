@@ -1,4 +1,4 @@
-package me.diax.diaxbot;
+package me.diax.diaxbot.irc;
 
 import me.diax.diaxbot.bots.DiaxIRCBot;
 
@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 
 /**
  * Created by NachtRaben on 4/16/2017.
+ *
+ * \o/
  */
 public abstract class IRCEvent {
 
