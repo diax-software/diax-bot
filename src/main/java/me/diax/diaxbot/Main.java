@@ -1,16 +1,17 @@
 package me.diax.diaxbot;
 
-import me.diax.diaxbot.bots.DiaxIRCBot;
+import me.diax.diaxbot.discord.DiaxDiscordBot;
 
 /**
- * \o/
+ * Created by comportment on 17/04/17.
  */
 public class Main {
 
-    private static final String IDENTIFIER = "DiaxBOT";
+    public static void main(String[] args) {
+        new Main().main();
+    }
 
-    public static void main(String[] args) throws Exception {
-        DiaxIRCBot bot = new DiaxIRCBot("irc.domirc.net", IDENTIFIER, IDENTIFIER);
-        bot.joinChannel("#diax.me", "##testing").joinChannel("#diax.me");
+    public void main() {
+        new DiaxDiscordBot().start();
     }
 }
