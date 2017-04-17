@@ -1,5 +1,7 @@
 package me.diax.diaxbot;
 
+import me.diax.diaxbot.util.AbstractDiaxBot;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -12,7 +14,7 @@ import java.util.Arrays;
  *
  * Don't worry, if it breaks we can run to NachtRaben.
  */
-public class DiaxIRCBot {
+public class DiaxIRCBot extends AbstractDiaxBot {
 
     public DiaxIRCBot(int port, String server, String... channel) throws Exception {
         Socket socket = new Socket(server, port);
@@ -37,7 +39,7 @@ public class DiaxIRCBot {
                 writer.write("JOIN " + string + "\r\n");
             } catch (Exception ignored){}
         });
-        writer.flush( );
+        writer.flush();
 
         while ((line = reader.readLine( )) != null) {
             System.out.println(line);
