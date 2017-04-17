@@ -1,7 +1,9 @@
 package me.diax.diaxbot.bots;
 
 import me.diax.diaxbot.EventHandler;
+import me.diax.diaxbot.irc.ChannelRejoinException;
 import me.diax.diaxbot.irc.IRCPatterns;
+import me.diax.diaxbot.irc.LoginException;
 import me.diax.diaxbot.irc.SystemEvent;
 
 import java.io.*;
@@ -98,7 +100,7 @@ public class DiaxIRCBot extends DiaxAbstractBot {
     public DiaxIRCBot joinChannel(String... channels) {
         Arrays.stream(channels).forEach(channel -> {
             if (this.channels.contains(channel))
-                throw new IllegalArgumentException("You have already joined " + channel);
+                throw new ChannelRejoinException(channel);
             this.channels.add(channel);
             System.out.println("Joining " + channel);
             writeMessage("JOIN " + channel);
@@ -108,7 +110,7 @@ public class DiaxIRCBot extends DiaxAbstractBot {
     }
 
     private DiaxIRCBot login() {
-        if (loggedIn) throw new IllegalArgumentException("Client is already logged in!");
+        if (loggedIn) throw new LoginException();
         writeMessage("NICK " + nickname + "\r\nUSER " + login + " 8 * NachtBotTest");
         while (!loggedIn) {
             try {

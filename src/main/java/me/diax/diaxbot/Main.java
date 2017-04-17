@@ -11,6 +11,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         DiaxIRCBot bot = new DiaxIRCBot("irc.domirc.net", IDENTIFIER, IDENTIFIER);
-        bot.joinChannel("#diax.me", "##testing");
+        bot.joinChannel("#diax.me", "##testing").joinChannel("#diax.me");
     }
 }
