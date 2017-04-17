@@ -41,7 +41,7 @@ public class DiaxIRCBot extends AbstractDiaxBot {
         });
         writer.flush();
 
-        while ((line = reader.readLine( )) != null) {
+        while ((line = reader.readLine()) != null) {
             System.out.println(line);
             if (line.startsWith("PING ")) {
                 writer.write("PONG " + line.substring(5) + "\r\n");
