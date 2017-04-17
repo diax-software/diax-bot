@@ -1,5 +1,7 @@
 package me.diax.diaxbot;
 
+import me.diax.diaxbot.bots.DiaxIRCBot;
+
 import java.util.regex.Matcher;
 
 /**
@@ -7,15 +9,15 @@ import java.util.regex.Matcher;
  */
 public abstract class IRCEvent {
 
-    private IRCBot ircBot;
+    private DiaxIRCBot ircBot;
     private String ircResponse;
 
-    public IRCEvent(IRCBot ircBot, Matcher response) {
+    public IRCEvent(DiaxIRCBot ircBot, Matcher response) {
         this.ircBot = ircBot;
         this.ircResponse = response.group(0);
     }
 
-    public IRCBot getIrcBot() {
+    public DiaxIRCBot getIrcBot() {
         return ircBot;
     }
 

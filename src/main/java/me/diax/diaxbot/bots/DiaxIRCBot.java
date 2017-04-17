@@ -1,6 +1,7 @@
-package me.diax.diaxbot;
+package me.diax.diaxbot.bots;
 
-import me.diax.diaxbot.events.ChannelMessageEvent;
+import me.diax.diaxbot.EventHandler;
+import me.diax.diaxbot.IRCPatterns;
 import me.diax.diaxbot.events.SystemEvent;
 
 import java.io.*;
@@ -13,12 +14,11 @@ import java.util.regex.Matcher;
 /**
  * Created by NachtRaben on 4/16/2017.
  */
-public class IRCBot implements Runnable {
+public class DiaxIRCBot extends DiaxAbstractBot {
 
     private static final ExecutorService exec = Executors.newCachedThreadPool();
 
     private Socket socket;
-
     private String server;
     private String login;
     private String nickname;
@@ -30,9 +30,8 @@ public class IRCBot implements Runnable {
     private BufferedWriter writer;
 
     private Set<Integer> waitForCode;
-    private List<EventHandler> eventHandlers;
 
-    public IRCBot(String server, String nickname, String login) throws IOException {
+    public DiaxIRCBot(String server, String nickname, String login) throws IOException {
         this.server = server;
         this.nickname = nickname;
         this.login = login;
@@ -40,7 +39,7 @@ public class IRCBot implements Runnable {
         waitForCode = new HashSet<>();
         eventHandlers = new ArrayList<>();
         socket = new Socket(server, 6667);
-        if(socket.isConnected()) {
+        if (socket.isConnected()) {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             System.out.println("Connection established. Logging in.");
@@ -63,31 +62,26 @@ public class IRCBot implements Runnable {
         }
     }
 
-    private void read() throws IOException {
+    private DiaxIRCBot read() throws IOException {
         String line = reader.readLine();
-        if(line != null) {
-            //System.out.println(line);
-            if(line.contains(" PING ")) {
-                System.err.println("Ping Recieved: " + line);
+        if (line != null) {
+            if (line.contains(" PING ")) {
                 writeMessage("PONG" + line.substring(5));
-            }
-            // TODO: Event matching.
-            else if(Patterns.SYSTEM_EVENT_PATTERN.matcher(line).find()) {
-                Matcher m = Patterns.SYSTEM_EVENT_PATTERN.matcher(line);
-                if(m.find()) {
+            } else if (IRCPatterns.SYSTEM_EVENT_PATTERN.matcher(line).find()) {
+                Matcher m = IRCPatterns.SYSTEM_EVENT_PATTERN.matcher(line);
+                if (m.find()) {
                     SystemEvent event = new SystemEvent(this, m);
                     eventHandlers.forEach(eh -> eh.onSystemEvent(event));
                 }
             } else {
-                System.out.println("Unhandled Event: " + line);
+                System.err.println("Unhandled Event: " + line);
             }
         }
+        return this;
     }
 
-    public void writeMessage(String message) {
-        if(!socket.isConnected())
-            throw new IllegalArgumentException("Attempted to send message on closed socket!");
-
+    private DiaxIRCBot writeMessage(String message) {
+        if (!socket.isConnected()) throw new IllegalArgumentException("Attempted to send a message on a closed socket.");
         try {
             writer.write(message + "\r\n");
             writer.flush();
@@ -95,24 +89,29 @@ public class IRCBot implements Runnable {
             System.err.println("Failed to write message to server!");
             e.printStackTrace();
         }
+        return this;
     }
 
-    public void joinChannel(String... channels) {
-        for(String channel : channels) {
-            if(this.channels.contains(channel))
+    private DiaxIRCBot writeToChannel(String message, String... channels) {
+        Arrays.stream(channels).forEach(channel ->
+            writeMessage(String.format("PRIVMSG %s %s", channel, message)));
+        return this;
+    }
+
+    public DiaxIRCBot joinChannel(String... channels) {
+        for (String channel : channels) {
+            if (this.channels.contains(channel))
                 throw new IllegalArgumentException("You have already joined " + channel);
-
             this.channels.add(channel);
-            writeMessage("JOIN " + channel);
+            writeMessage("JOIN " + channel).writeToChannel("Hello!", channel);
         }
+        return this;
     }
 
-    private void login() {
-        if(loggedIn)
-            throw new IllegalArgumentException("Client is already logged in!");
-
+    private DiaxIRCBot login() {
+        if (loggedIn) throw new IllegalArgumentException("Client is already logged in!");
         writeMessage("NICK " + nickname + "\r\nUSER " + login + " 8 * NachtBotTest");
-        while(!loggedIn) {
+        while (!loggedIn) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -120,22 +119,15 @@ public class IRCBot implements Runnable {
             }
         }
         System.out.println("Logged in successfully.");
-    }
-
-    public void addEventHandler(EventHandler... handlers) {
-        eventHandlers.addAll(Arrays.asList(handlers));
-    }
-
-    public void removeEventHandler(EventHandler... handlers) {
-        eventHandlers.removeAll(Arrays.asList(handlers));
+        return this;
     }
 
     @Override
     public void run() {
-        while(!socket.isClosed()) {
+        while (!socket.isClosed()) {
             try {
                 read();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

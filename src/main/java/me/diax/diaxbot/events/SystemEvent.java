@@ -1,6 +1,6 @@
 package me.diax.diaxbot.events;
 
-import me.diax.diaxbot.IRCBot;
+import me.diax.diaxbot.bots.DiaxIRCBot;
 import me.diax.diaxbot.IRCEvent;
 
 import java.util.regex.Matcher;
@@ -14,7 +14,7 @@ public class SystemEvent extends IRCEvent {
     private int code;
     private String message;
 
-    public SystemEvent(IRCBot ircBot, Matcher response) {
+    public SystemEvent(DiaxIRCBot ircBot, Matcher response) {
         super(ircBot, response);
         server = response.group(1);
         code = Integer.parseInt(response.group(2));

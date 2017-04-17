@@ -9,7 +9,6 @@ import me.diax.diaxbot.events.SystemEvent;
  */
 public abstract class EventHandler {
 
-    public void onSystemEvent(SystemEvent event){};
-    public void onChannelMessage(ChannelMessageEvent event){};
-
+    public void onSystemEvent(SystemEvent event){}
+    public void onChannelMessage(ChannelMessageEvent event){}
 }
