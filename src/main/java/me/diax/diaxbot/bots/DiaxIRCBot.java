@@ -23,12 +23,9 @@ public class DiaxIRCBot extends DiaxAbstractBot {
     private String login;
     private String nickname;
     private Set<String> channels;
-
     private boolean loggedIn = false;
-
     private BufferedReader reader;
     private BufferedWriter writer;
-
     private Set<Integer> waitForCode;
 
     public DiaxIRCBot(String server, String nickname, String login) throws IOException {
@@ -47,7 +44,7 @@ public class DiaxIRCBot extends DiaxAbstractBot {
             eventHandlers.add(new EventHandler() {
                 @Override
                 public void onSystemEvent(SystemEvent event) {
-                    switch (event.getCode()) {
+                    switch ((event.getCode())) {
                         case 001:
                             loggedIn = true;
                             break;
@@ -81,7 +78,8 @@ public class DiaxIRCBot extends DiaxAbstractBot {
     }
 
     private DiaxIRCBot writeMessage(String message) {
-        if (!socket.isConnected()) throw new IllegalArgumentException("Attempted to send a message on a closed socket.");
+        if (!socket.isConnected())
+            throw new IllegalArgumentException("Attempted to send a message on a closed socket.");
         try {
             writer.write(message + "\r\n");
             writer.flush();
@@ -93,19 +91,19 @@ public class DiaxIRCBot extends DiaxAbstractBot {
     }
 
     private DiaxIRCBot writeToChannel(String message, String... channels) {
-        Arrays.stream(channels).forEach(channel ->
-            writeMessage(String.format("PRIVMSG %s %s", channel, message)));
+        Arrays.stream(channels).forEach(channel -> writeMessage(String.format("PRIVMSG %s %s", channel, message)));
         return this;
     }
 
     public DiaxIRCBot joinChannel(String... channels) {
-        for (String channel : channels) {
+        Arrays.stream(channels).forEach(channel -> {
             if (this.channels.contains(channel))
                 throw new IllegalArgumentException("You have already joined " + channel);
             this.channels.add(channel);
             System.out.println("Joining " + channel);
-            writeMessage("JOIN " + channel).writeToChannel("Hello!", channel);
-        }
+            writeMessage("JOIN " + channel);
+            writeToChannel("Hello!", channel);
+        });
         return this;
     }
 

@@ -7,10 +7,10 @@ import me.diax.diaxbot.bots.DiaxIRCBot;
  */
 public class Main {
 
-    private static final String IDENTIFIER = "comportment";
+    private static final String IDENTIFIER = "DiaxBOT";
 
     public static void main(String[] args) throws Exception {
         DiaxIRCBot bot = new DiaxIRCBot("irc.domirc.net", IDENTIFIER, IDENTIFIER);
-        bot.joinChannel("diax.me", "##testing");
+        bot.joinChannel("#diax.me", "##testing");
     }
 }
