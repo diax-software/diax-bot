@@ -17,16 +17,17 @@ public class DiaxCommandHandler {
         execute(input);
     }
 
-    private void execute(DiaxMessage input) {
+    private boolean execute(DiaxMessage input) {
         String content = input.getContent().replaceFirst(prefix, "").trim();
         DiaxCommandDescription description = new DiaxCommands().find(content.split(" ")[0]);
-        if (description == null) return;
+        if (description == null) return false;
         try {
             if (content.split(" ").length < description.minimumArgs())
                 throw new NotEnoughArgsException(description.name() + " needs " + description.minimumArgs() + " args.");
-            new DiaxCommands().newInstance(description).execute(input, content);
+            return new DiaxCommands().newInstance(description).execute(input, content);
         } catch (Exception e) {
             System.err.println("Error executing: " + description.name());
+            return false;
         }
     }
 }

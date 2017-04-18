@@ -16,7 +16,7 @@ public class DiaxCommands {
     private static final String COMMAND_PACKAGE = "me.diax.bot.commands";
     private final Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> commands;
 
-    public DiaxCommands() {
+    DiaxCommands() {
         this.commands = new HashMap<>();
         init();
     }
@@ -35,7 +35,7 @@ public class DiaxCommands {
         return commands.keySet();
     }
 
-    public DiaxCommandDescription find(String input) {
+    DiaxCommandDescription find(String input) {
         for (DiaxCommandDescription cmd : commands.keySet()) {
             for (String s : cmd.triggers()) {
                 if (input.equalsIgnoreCase(s)) {
@@ -46,7 +46,7 @@ public class DiaxCommands {
         return null;
     }
 
-    public AbstractDiaxCommand newInstance(DiaxCommandDescription description) throws Exception {
+    AbstractDiaxCommand newInstance(DiaxCommandDescription description) throws Exception {
         Class<? extends AbstractDiaxCommand> type;
         if (description != null && (type = commands.get(description)) != null) {
             return type.newInstance();
