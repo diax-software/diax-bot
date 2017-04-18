@@ -1,4 +1,4 @@
-package me.diax.diaxbot.lib.command;
+package me.diax.bot.lib.command;
 
 /**
  * Created by comportment on 18/04/17.

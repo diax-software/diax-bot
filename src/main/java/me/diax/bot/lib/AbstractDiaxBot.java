@@ -1,7 +1,4 @@
-package me.diax.diaxbot.lib;
-
-import me.diax.diaxbot.lib.exceptions.BotStartException;
-import me.diax.diaxbot.lib.exceptions.BotStopException;
+package me.diax.bot.lib;
 
 /**
  * Created by Comportment on 17/04/17.

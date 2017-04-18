@@ -1,4 +1,4 @@
-package me.diax.diaxbot.lib.exceptions;
+package me.diax.bot.lib.exceptions;
 
 /**
  * Created by comportment on 18/04/17.

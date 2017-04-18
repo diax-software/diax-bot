@@ -1,4 +1,4 @@
-package me.diax.diaxbot.lib.objects;
+package me.diax.bot.lib.objects;
 
 import java.sql.Timestamp;
 

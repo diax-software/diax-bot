@@ -1,8 +1,8 @@
-package me.diax.diaxbot.discord;
+package me.diax.bot.discord;
 
-import me.diax.diaxbot.lib.AbstractDiaxAudioBot;
-import me.diax.diaxbot.lib.exceptions.BotStartException;
-import me.diax.diaxbot.lib.exceptions.BotStopException;
+import me.diax.bot.lib.AbstractDiaxAudioBot;
+import me.diax.bot.lib.exceptions.BotStartException;
+import me.diax.bot.lib.exceptions.BotStopException;
 
 /**
  * Created by comportment on 17/04/17.

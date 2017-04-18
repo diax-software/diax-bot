@@ -1,7 +1,7 @@
-package me.diax.diaxbot.commands;
+package me.diax.bot.commands;
 
-import me.diax.diaxbot.lib.command.AbstractDiaxCommand;
-import me.diax.diaxbot.lib.command.DiaxCommandDescription;
+import me.diax.bot.lib.command.AbstractDiaxCommand;
+import me.diax.bot.lib.command.DiaxCommandDescription;
 
 /**
  * Created by comportment on 18/04/17.

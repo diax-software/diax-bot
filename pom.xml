@@ -39,7 +39,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>me.diax.diaxbot.Main</mainClass>
+                            <mainClass>me.diax.bot.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

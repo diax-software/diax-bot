@@ -1,4 +1,4 @@
-package me.diax.diaxbot.lib.command;
+package me.diax.bot.lib.command;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;

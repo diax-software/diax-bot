@@ -1,8 +1,8 @@
-package me.diax.diaxbot;
+package me.diax.bot;
 
-import me.diax.diaxbot.discord.DiaxDiscordBot;
-import me.diax.diaxbot.lib.objects.DiaxAuthor;
-import me.diax.diaxbot.lib.objects.DiaxMessage;
+import me.diax.bot.discord.DiaxDiscordBot;
+import me.diax.bot.lib.objects.DiaxAuthor;
+import me.diax.bot.lib.objects.DiaxMessage;
 
 import java.sql.Timestamp;
 
