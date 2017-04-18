@@ -55,4 +55,17 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>diax-release</id>
+            <name>Diax Releases</name>
+            <url>https://repo.knockturnmc.com/content/repositories/diax-release/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>diax-srv</groupId>
+            <artifactId>1.0</artifactId>
+        </dependency>
+    </dependencies>
 </project>
