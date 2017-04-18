@@ -64,8 +64,9 @@
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>diax-srv</groupId>
-            <artifactId>1.0</artifactId>
+            <groupId>me.diax</groupId>
+            <artifactId>diax-srv-client</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>
