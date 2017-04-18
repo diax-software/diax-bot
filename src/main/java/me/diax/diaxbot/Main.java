@@ -11,7 +11,7 @@ public class Main {
         new Main().main();
     }
 
-    public void main() {
+    private void main() {
         new DiaxDiscordBot().start();
     }
 }
