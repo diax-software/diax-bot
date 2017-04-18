@@ -15,20 +15,36 @@ public abstract class AbstractDiaxAudioBot extends AbstractDiaxBot {
     private DiaxAudioTrack currentTrack;
     private BlockingQueue<DiaxAudioTrack> queue;
 
+    /**
+     * Used to reset the queue and the current track when a new instance of an AudioBot is made.
+     */
     public AbstractDiaxAudioBot() {
         currentTrack = null;
         queue = new LinkedBlockingQueue<>();
     }
 
+    /**
+     *
+     * @return The current queue of the music bot, sometimes null.
+     */
     public BlockingQueue<DiaxAudioTrack> getQueue() {
         return queue;
     }
 
+    /**
+     *
+     * @param track The track to set as currently playing.
+     * @return An instance of the bot, useful for chaining.
+     */
     public AbstractDiaxAudioBot setCurrentTrack(DiaxAudioTrack track) {
         currentTrack = track;
         return this;
     }
 
+    /**
+     *
+     * @return The current playing track.
+     */
     public DiaxAudioTrack getCurrentTrack() {
         return currentTrack;
     }
