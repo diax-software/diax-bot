@@ -18,7 +18,7 @@ public class Main {
     }
 
     private void main() {
-        new DiaxDiscordBot().start();
+        new DiaxDiscordBot().start().stop();
         DiaxMessage message = new DiaxMessage(new DiaxAuthor("Testing", "Test"), "Hello everybody!", new Timestamp(System.currentTimeMillis()));
     }
 }

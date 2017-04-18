@@ -3,7 +3,7 @@ package me.diax.diaxbot.lib;
 /**
  * Created by comportment on 18/04/17.
  *
- * Now we need to abstract the abstraction.
+ * An abstract class for bots that can use audio commands.
  */
 public abstract class AbstractDiaxAudioBot extends AbstractDiaxBot {
 }
