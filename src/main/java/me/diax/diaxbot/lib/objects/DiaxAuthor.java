@@ -5,8 +5,8 @@ package me.diax.diaxbot.lib.objects;
  */
 public class DiaxAuthor {
 
-    private String fullName;
-    private String simpleName;
+    private final String fullName;
+    private final String simpleName;
 
     /**
      *

@@ -9,9 +9,9 @@ import java.sql.Timestamp;
  */
 public class DiaxMessage implements Comparable<DiaxMessage> {
 
-    private DiaxAuthor author;
-    private String content;
-    private Timestamp timestamp;
+    private final DiaxAuthor author;
+    private final String content;
+    private final Timestamp timestamp;
 
     /**
      * Constructor to build a message, it must have these values.
