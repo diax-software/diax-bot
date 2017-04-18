@@ -13,7 +13,11 @@ public class DiaxTimestamp extends Date {
         super(time);
     }
 
-    public static DiaxTimestamp getCurrentTimestamp() {
+    public static DiaxTimestamp getCurrentTime() {
         return new DiaxTimestamp(System.currentTimeMillis() + DIAX_EPOCH);
+    }
+
+    public static DiaxTimestamp fromEpoch(long epoch) {
+        return new DiaxTimestamp(epoch + DIAX_EPOCH);
     }
 }

@@ -1,5 +1,7 @@
 package me.diax.diaxbot.lib;
 
+import me.diax.diaxbot.lib.exceptions.BotStartException;
+
 /**
  * Created by Comportment on 17/04/17.
  *
@@ -7,6 +9,17 @@ package me.diax.diaxbot.lib;
  */
 public abstract class AbstractDiaxBot {
 
-    public abstract AbstractDiaxBot start();
+    private boolean started;
+
+    public abstract AbstractDiaxBot start() throws BotStartException;
     public abstract AbstractDiaxBot stop();
+
+    public boolean hasStarted() {
+        return started;
+    }
+
+    public AbstractDiaxBot setStarted(boolean started) {
+        this.started = started;
+        return this;
+    }
 }
