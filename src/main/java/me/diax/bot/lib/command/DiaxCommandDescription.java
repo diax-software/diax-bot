@@ -27,4 +27,9 @@ public @interface DiaxCommandDescription {
      * The description of the command.
      */
     String description();
+
+    /**
+     * The minimum amount of args needed to execute the command.
+     */
+    int minimumArgs();
 }

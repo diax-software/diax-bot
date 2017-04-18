@@ -1,6 +1,7 @@
 package me.diax.bot;
 
 import me.diax.bot.discord.DiaxDiscordBot;
+import me.diax.bot.lib.command.DiaxCommandHandler;
 import me.diax.bot.lib.objects.DiaxAuthor;
 import me.diax.bot.lib.objects.DiaxMessage;
 
@@ -19,6 +20,7 @@ public class Main {
 
     private void main() {
         new DiaxDiscordBot().start().stop();
-        DiaxMessage message = new DiaxMessage(new DiaxAuthor("Testing", "Test"), "Hello everybody!", new Timestamp(System.currentTimeMillis()));
+        DiaxMessage message = new DiaxMessage(new DiaxAuthor("Testing", "Test"), "<>ping", new Timestamp(System.currentTimeMillis()));
+        new DiaxCommandHandler(message);
     }
 }
