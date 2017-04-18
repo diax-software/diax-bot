@@ -8,28 +8,12 @@ import me.diax.diaxbot.lib.exceptions.BotStopException;
  *
  * An abstract class for bots that can use audio commands.
  */
-public abstract class AbstractDiaxBot {
+public abstract class AbstractDiaxBot implements DiaxBotImpl {
 
     /**
      * Boolean value that represents if the bot is started or not.
      */
     private boolean started;
-
-    /**
-     * Starts an instance of the bot.
-     *
-     * @return The instance of the bot that was started, useful for chaining.
-     * @throws BotStartException If the bot could not be started.
-     */
-    public abstract AbstractDiaxBot start() throws BotStartException;
-
-    /**
-     * Stops the instance of the bot.
-     *
-     * @return The instance of the bot that was stopped, useful for chaining.
-     * @throws BotStopException If the could could not be stopped.
-     */
-    public abstract AbstractDiaxBot stop() throws BotStopException;
 
     /**
      *
