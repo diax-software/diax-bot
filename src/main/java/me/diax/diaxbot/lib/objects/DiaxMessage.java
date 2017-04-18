@@ -3,7 +3,7 @@ package me.diax.diaxbot.lib.objects;
 /**
  * Created by comportment on 18/04/17.
  */
-public class DiaxMessage {
+public class DiaxMessage implements Comparable<DiaxMessage> {
 
     private DiaxAuthor author;
     private String content;
@@ -25,5 +25,10 @@ public class DiaxMessage {
 
     public DiaxTimestamp getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public int compareTo(DiaxMessage that) {
+        return this.getTimestamp().compareTo(that.getTimestamp());
     }
 }
