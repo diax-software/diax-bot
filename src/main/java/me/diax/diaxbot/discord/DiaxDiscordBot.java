@@ -4,6 +4,8 @@ import me.diax.diaxbot.lib.AbstractDiaxAudioBot;
 
 /**
  * Created by comportment on 17/04/17.
+ *
+ * gr8 bot 100% working would use again.
  */
 public class DiaxDiscordBot extends AbstractDiaxAudioBot {
 
