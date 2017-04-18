@@ -1,5 +1,7 @@
 package me.diax.diaxbot.lib.objects;
 
+import java.sql.Timestamp;
+
 /**
  * Created by comportment on 18/04/17.
  */
@@ -7,9 +9,9 @@ public class DiaxMessage implements Comparable<DiaxMessage> {
 
     private DiaxAuthor author;
     private String content;
-    private DiaxTimestamp timestamp;
+    private Timestamp timestamp;
 
-    public DiaxMessage(DiaxAuthor author, String content, DiaxTimestamp timestamp) {
+    public DiaxMessage(DiaxAuthor author, String content, Timestamp timestamp) {
         this.author = author;
         this.content = content;
         this.timestamp = timestamp;
@@ -23,7 +25,7 @@ public class DiaxMessage implements Comparable<DiaxMessage> {
         return content;
     }
 
-    public DiaxTimestamp getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
