@@ -12,12 +12,8 @@ public class DiaxCommandHandler {
 
     private final String prefix = "<>";
 
-    public DiaxCommandHandler(DiaxMessage input) {
-        if (!input.getContent().startsWith(prefix)) return;
-        execute(input);
-    }
-
-    private boolean execute(DiaxMessage input) {
+    public boolean execute(DiaxMessage input) {
+        if (!input.getContent().startsWith(prefix)) return false;
         String content = input.getContent().replaceFirst(prefix, "").trim();
         DiaxCommandDescription description = new DiaxCommands().find(content.split(" ")[0]);
         if (description == null) return false;

@@ -21,6 +21,6 @@ public class Main {
     private void main() {
         new DiaxDiscordBot().start().stop();
         DiaxMessage message = new DiaxMessage(new DiaxAuthor("Testing", "Test"), "<>ping", new Timestamp(System.currentTimeMillis()));
-        new DiaxCommandHandler(message);
+        new DiaxCommandHandler().execute(message);
     }
 }
