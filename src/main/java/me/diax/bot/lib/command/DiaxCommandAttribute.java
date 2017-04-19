@@ -7,6 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by comportment on 18/04/17.
+ *
+ * This might do something in the future.
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

@@ -1,8 +1,8 @@
 package me.diax.bot;
 
-import me.diax.bot.discord.DiaxDiscordBot;
-import me.diax.bot.lib.command.DiaxCommandHandler;
+import me.diax.bot.bots.DiaxOfflineBot;
 import me.diax.bot.lib.objects.DiaxAuthor;
+import me.diax.bot.lib.objects.DiaxChannel;
 import me.diax.bot.lib.objects.DiaxMessage;
 
 import java.sql.Timestamp;
@@ -14,13 +14,14 @@ import java.sql.Timestamp;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new Main().main();
     }
 
-    private void main() {
-        new DiaxDiscordBot().start().stop();
+    private void main() throws Exception {
+        DiaxAuthor author = new DiaxAuthor("sadas", "a");
+        DiaxChannel channel = new DiaxChannel("nope");
         DiaxMessage message = new DiaxMessage(new DiaxAuthor("Testing", "Test"), "<>ping", new Timestamp(System.currentTimeMillis()));
-        new DiaxCommandHandler().execute(message);
+        new DiaxOfflineBot().start().messageTo(channel, message);
     }
 }

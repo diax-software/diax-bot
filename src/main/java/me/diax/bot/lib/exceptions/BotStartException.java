@@ -1,9 +1,11 @@
 package me.diax.bot.lib.exceptions;
 
+import java.io.IOException;
+
 /**
  * Created by comportment on 18/04/17.
  */
-public class BotStartException extends RuntimeException {
+public class BotStartException extends IOException {
 
     public BotStartException() {
         super();
