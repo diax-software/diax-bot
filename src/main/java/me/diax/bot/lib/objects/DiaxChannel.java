@@ -7,13 +7,22 @@ package me.diax.bot.lib.objects;
  */
 public class DiaxChannel {
 
+    private final String identifier;
     private final String name;
 
     /**
      * @param name The name of the channel.
      */
-    public DiaxChannel(String name) {
+    public DiaxChannel(String identifier, String name) {
+        this.identifier = identifier;
         this.name = name;
+    }
+
+    /**
+     * @return The unique identifier for the channel.
+     */
+    public String getIdentifier() {
+        return identifier;
     }
 
     /**
