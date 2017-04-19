@@ -1,5 +1,8 @@
 package me.diax.bot.lib;
 
+import me.diax.bot.lib.objects.DiaxChannel;
+import me.diax.bot.lib.objects.DiaxMessage;
+
 /**
  * Created by Comportment on 17/04/17.
  *
@@ -27,6 +30,19 @@ public abstract class AbstractDiaxBot implements DiaxBotImpl {
      */
     public AbstractDiaxBot setStarted(boolean started) {
         this.started = started;
+        return this;
+    }
+
+    /**
+     * A method to send messages to channels.
+     *
+     * @param channel The channel to send the message to.
+     * @param message The message to send to the channel.
+     * @return The instance of the bot that sent the message, useful for chaining.
+     */
+    @Override
+    public AbstractDiaxBot messageTo(DiaxChannel channel, DiaxMessage message) {
+        messageTo(channel, message.getContent());
         return this;
     }
 }

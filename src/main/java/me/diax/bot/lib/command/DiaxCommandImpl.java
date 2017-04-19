@@ -1,5 +1,6 @@
 package me.diax.bot.lib.command;
 
+import me.diax.bot.lib.AbstractDiaxBot;
 import me.diax.bot.lib.objects.DiaxMessage;
 
 /**
@@ -14,5 +15,5 @@ public interface DiaxCommandImpl {
      *
      * @return Whether or not the command was executed successfully.
      */
-    boolean execute(DiaxMessage trigger, String raw);
+    boolean execute(AbstractDiaxBot bot, DiaxMessage trigger, String raw);
 }

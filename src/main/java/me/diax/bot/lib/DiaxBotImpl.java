@@ -32,4 +32,9 @@ public interface DiaxBotImpl {
      * @return The instance of the bot, useful for chaining.
      */
     AbstractDiaxBot messageTo(DiaxChannel channel, DiaxMessage message);
+
+    /**
+     * @return The instance of the bot, useful for chaining.
+     */
+    AbstractDiaxBot messageTo(DiaxChannel channel, String message);
 }

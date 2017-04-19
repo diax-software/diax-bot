@@ -12,6 +12,7 @@ public class DiaxMessage implements Comparable<DiaxMessage> {
     private final DiaxAuthor author;
     private final String content;
     private final Timestamp timestamp;
+    private final DiaxChannel channel;
 
     /**
      * Constructor to build a message, it must have these values.
@@ -20,10 +21,11 @@ public class DiaxMessage implements Comparable<DiaxMessage> {
      * @param content The message's content.
      * @param timestamp The time the message was sent at.
      */
-    public DiaxMessage(DiaxAuthor author, String content, Timestamp timestamp) {
+    public DiaxMessage(DiaxAuthor author, String content, Timestamp timestamp, DiaxChannel channel) {
         this.author = author;
         this.content = content;
         this.timestamp = timestamp;
+        this.channel = channel;
     }
 
     /**
@@ -48,6 +50,13 @@ public class DiaxMessage implements Comparable<DiaxMessage> {
      */
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    /**
+     * @return The message the channel has been sent in.
+     */
+    public DiaxChannel getChannel() {
+        return channel;
     }
 
     /**
