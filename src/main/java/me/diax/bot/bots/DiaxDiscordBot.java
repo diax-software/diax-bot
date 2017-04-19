@@ -4,7 +4,6 @@ import me.diax.bot.lib.AbstractDiaxAudioBot;
 import me.diax.bot.lib.exceptions.BotStartException;
 import me.diax.bot.lib.exceptions.BotStopException;
 import me.diax.bot.lib.objects.DiaxChannel;
-import me.diax.bot.lib.objects.DiaxMessage;
 
 /**
  * Created by comportment on 17/04/17.
@@ -31,7 +30,7 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
     }
 
     @Override
-    public DiaxDiscordBot messageTo(DiaxChannel channel, DiaxMessage message) {
+    public DiaxDiscordBot messageTo(DiaxChannel channel, String message) {
         return this;
     }
 }

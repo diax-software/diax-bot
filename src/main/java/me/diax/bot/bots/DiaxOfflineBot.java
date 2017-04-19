@@ -2,11 +2,6 @@ package me.diax.bot.bots;
 
 import me.diax.bot.lib.AbstractDiaxBot;
 import me.diax.bot.lib.objects.DiaxChannel;
-import me.diax.bot.lib.objects.DiaxMessage;
-
-import java.time.OffsetTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Created by Comportment on 19/04/17.
@@ -30,8 +25,8 @@ public class DiaxOfflineBot extends AbstractDiaxBot {
     }
 
     @Override
-    public AbstractDiaxBot messageTo(DiaxChannel channel, DiaxMessage message) {
-        System.out.println(DateTimeFormatter.ofPattern("[HH:mm:ss]").format(OffsetTime.ofInstant(message.getTimestamp().toInstant(), ZoneId.systemDefault())) + " " + channel.getName() + ": " + message.getContent());
+    public AbstractDiaxBot messageTo(DiaxChannel channel, String message) {
+        System.out.println(channel.getName() + ": " + message);
         return this;
     }
 }

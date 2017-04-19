@@ -2,7 +2,6 @@ package me.diax.bot.bots;
 
 import me.diax.bot.lib.AbstractDiaxBot;
 import me.diax.bot.lib.objects.DiaxChannel;
-import me.diax.bot.lib.objects.DiaxMessage;
 
 import java.io.*;
 import java.net.Socket;
@@ -44,8 +43,8 @@ public class DiaxIRCBot extends AbstractDiaxBot {
     }
 
     @Override
-    public AbstractDiaxBot messageTo(DiaxChannel channel, DiaxMessage message) {
-        writeToChannel(message.getContent(), channel.getName());
+    public AbstractDiaxBot messageTo(DiaxChannel channel, String message) {
+        writeToChannel(message, channel.getName());
         return this;
     }
 
