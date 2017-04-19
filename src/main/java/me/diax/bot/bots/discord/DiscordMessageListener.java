@@ -1,6 +1,6 @@
 package me.diax.bot.bots.discord;
 
-import me.diax.bot.lib.command.DiaxCommandHandler;
+import me.diax.bot.Main;
 import me.diax.bot.lib.objects.DiaxAuthor;
 import me.diax.bot.lib.objects.DiaxChannel;
 import me.diax.bot.lib.objects.DiaxMessage;
@@ -29,7 +29,7 @@ public class DiscordMessageListener extends ListenerAdapter {
                 event.getMessage().getRawContent(),
                 new Timestamp(1000 * event.getMessage().getCreationTime().toEpochSecond()),
                 new DiaxChannel(event.getChannel().getId(), event.getChannel().getName()));
-        new DiaxCommandHandler().execute(bot, message);
+        Main.getHandler().execute(bot, message);
 
     }
 }

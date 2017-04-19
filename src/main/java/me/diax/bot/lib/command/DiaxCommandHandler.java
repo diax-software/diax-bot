@@ -11,13 +11,14 @@ import me.diax.bot.lib.objects.DiaxMessage;
  */
 public class DiaxCommandHandler {
 
+    private static final DiaxCommands COMMANDS = new DiaxCommands();
     private final String prefix = "<>";
 
     public boolean execute(AbstractDiaxBot bot, DiaxMessage input) {
         if (!input.getContent().startsWith(prefix)) return false;
         System.out.println(input.getContent());
         String content = input.getContent().replaceFirst(prefix, "").trim();
-        DiaxCommandDescription description = new DiaxCommands().find(content.split(" ")[0]);
+        DiaxCommandDescription description = COMMANDS.find(content.split(" ")[0]);
         if (description == null) return false;
         try {
             if (content.split(" ").length < description.minimumArgs())
