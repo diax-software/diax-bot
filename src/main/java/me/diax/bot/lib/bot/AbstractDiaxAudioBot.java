@@ -1,4 +1,4 @@
-package me.diax.bot.lib;
+package me.diax.bot.lib.bot;
 
 import me.diax.bot.lib.objects.DiaxAudioTrack;
 

@@ -1,7 +1,8 @@
 package me.diax.bot.bots.discord;
 
 import me.diax.bot.Main;
-import me.diax.bot.lib.AbstractDiaxAudioBot;
+import me.diax.bot.lib.bot.AbstractDiaxAudioBot;
+import me.diax.bot.lib.command.DiaxCommandHandler;
 import me.diax.bot.lib.exceptions.BotStartException;
 import me.diax.bot.lib.exceptions.BotStopException;
 import me.diax.bot.lib.objects.DiaxAuthor;
@@ -13,6 +14,8 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.sql.Timestamp;
 
 /**
@@ -20,9 +23,16 @@ import java.sql.Timestamp;
  * <p>
  * gr8 bot 100% working would use again.
  */
+@Singleton
 public class DiaxDiscordBot extends AbstractDiaxAudioBot {
 
     private static JDA jda;
+    private DiaxCommandHandler handler;
+
+    @Inject
+    public DiaxDiscordBot(DiaxCommandHandler handler) {
+        this.handler = handler;
+    }
 
     @Override
     public DiaxDiscordBot start() throws Exception {
@@ -39,7 +49,7 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
                                 event.getMessage().getRawContent(),
                                 new Timestamp(1000 * event.getMessage().getCreationTime().toEpochSecond()),
                                 new DiaxChannel(event.getChannel().getId(), event.getChannel().getName()));
-                        Main.getHandler().execute(new DiaxDiscordBot(), message);
+                        handler.execute(new Main().getInstance(DiaxDiscordBot.class), message);
                     }
                 }
         ).buildBlocking();

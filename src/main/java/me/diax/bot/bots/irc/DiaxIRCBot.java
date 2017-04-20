@@ -1,12 +1,15 @@
 package me.diax.bot.bots.irc;
 
 import me.diax.bot.Main;
-import me.diax.bot.lib.AbstractDiaxBot;
+import me.diax.bot.lib.bot.AbstractDiaxBot;
+import me.diax.bot.lib.command.DiaxCommandHandler;
 import me.diax.bot.lib.objects.DiaxAuthor;
 import me.diax.bot.lib.objects.DiaxChannel;
 import me.diax.bot.lib.objects.DiaxMessage;
 import org.jibble.pircbot.PircBot;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.sql.Timestamp;
 
 /**
@@ -14,9 +17,16 @@ import java.sql.Timestamp;
  * <p>
  * Lets make this pretty again.
  */
+@Singleton
 public class DiaxIRCBot extends AbstractDiaxBot {
 
     private static PircBot bot;
+    private DiaxCommandHandler handler;
+
+    @Inject
+    public DiaxIRCBot(DiaxCommandHandler handler) {
+        this.handler = handler;
+    }
 
     @Override
     public AbstractDiaxBot start() throws Exception {
@@ -30,7 +40,7 @@ public class DiaxIRCBot extends AbstractDiaxBot {
                         new Timestamp(System.currentTimeMillis()),
                         new DiaxChannel(channel, channel)
                 );
-                Main.getHandler().execute(new DiaxIRCBot(), dmsg);
+                handler.execute(new Main().getInstance(DiaxIRCBot.class), dmsg);
             }
         };
         bot.connect("irc.domirc.net", 6667);

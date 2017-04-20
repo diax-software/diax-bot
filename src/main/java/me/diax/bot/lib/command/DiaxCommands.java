@@ -1,7 +1,10 @@
 package me.diax.bot.lib.command;
 
+import me.diax.bot.lib.ComponentProvider;
 import org.reflections.Reflections;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -11,12 +14,16 @@ import java.util.Set;
  * <p>
  * DOn't code while sleep deprived :^)
  */
+@Singleton
 public class DiaxCommands {
 
     private static final String COMMAND_PACKAGE = "me.diax.bot.commands";
+    private final ComponentProvider provider;
     private final Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> commands;
 
-    DiaxCommands() {
+    @Inject
+    DiaxCommands(ComponentProvider provider) {
+        this.provider = provider;
         this.commands = new HashMap<>();
         init();
     }
@@ -49,7 +56,7 @@ public class DiaxCommands {
     AbstractDiaxCommand newInstance(DiaxCommandDescription description) throws Exception {
         Class<? extends AbstractDiaxCommand> type;
         if (description != null && (type = commands.get(description)) != null) {
-            return type.newInstance();
+            return provider.getInstance(type);
         } else {
             return null;
         }

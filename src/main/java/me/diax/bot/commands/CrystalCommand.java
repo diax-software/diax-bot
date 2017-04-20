@@ -1,6 +1,6 @@
 package me.diax.bot.commands;
 
-import me.diax.bot.lib.AbstractDiaxBot;
+import me.diax.bot.lib.bot.AbstractDiaxBot;
 import me.diax.bot.lib.command.AbstractDiaxCommand;
 import me.diax.bot.lib.command.DiaxCommandDescription;
 import me.diax.bot.lib.objects.DiaxMessage;

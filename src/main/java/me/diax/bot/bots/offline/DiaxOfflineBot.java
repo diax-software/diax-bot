@@ -1,6 +1,6 @@
 package me.diax.bot.bots.offline;
 
-import me.diax.bot.lib.AbstractDiaxBot;
+import me.diax.bot.lib.bot.AbstractDiaxBot;
 import me.diax.bot.lib.objects.DiaxChannel;
 
 /**
