@@ -1,6 +1,8 @@
 package me.diax.bot;
 
 import me.diax.bot.bots.discord.DiaxDiscordBot;
+import me.diax.bot.bots.irc.DiaxIRCBot;
+import me.diax.bot.lib.AbstractDiaxAudioBot;
 import me.diax.bot.lib.AbstractDiaxBot;
 import me.diax.bot.lib.command.DiaxCommandHandler;
 
@@ -22,6 +24,7 @@ public class Main {
     }
 
     private void main() throws Exception {
-        AbstractDiaxBot bot = new DiaxDiscordBot().start();
+        AbstractDiaxBot bot = new DiaxIRCBot().start();
+        AbstractDiaxAudioBot bot2 = new DiaxDiscordBot().start();
     }
 }

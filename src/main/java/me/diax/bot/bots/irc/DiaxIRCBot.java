@@ -1,11 +1,13 @@
 package me.diax.bot.bots.irc;
 
+import me.diax.bot.Main;
 import me.diax.bot.lib.AbstractDiaxBot;
+import me.diax.bot.lib.objects.DiaxAuthor;
 import me.diax.bot.lib.objects.DiaxChannel;
+import me.diax.bot.lib.objects.DiaxMessage;
+import org.jibble.pircbot.PircBot;
 
-import java.io.*;
-import java.net.Socket;
-import java.util.Arrays;
+import java.sql.Timestamp;
 
 /**
  * Created by Comportment on 19/04/17.
@@ -14,55 +16,40 @@ import java.util.Arrays;
  */
 public class DiaxIRCBot extends AbstractDiaxBot {
 
-    private final String host;
-    private final int port;
-    private Socket socket;
-    private String[] channels;
-    private BufferedReader reader;
-    private BufferedWriter writer;
-
-    public DiaxIRCBot(String host, int port, String... channels) {
-        this.host = host;
-        this.port = port;
-        this.channels = channels.clone();
-    }
+    private static PircBot bot;
 
     @Override
-    public DiaxIRCBot start() throws Exception {
-        System.out.println("Starting...");
-        socket = new Socket(host, port);
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        return this;
-    }
+    public AbstractDiaxBot start() throws Exception {
+        bot = new PircBot() {
 
-    @Override
-    public DiaxIRCBot stop() throws Exception {
-        socket = null;
+            @Override
+            protected void onMessage(String channel, String sender, String login, String hostname, String message) {
+                DiaxMessage dmsg = new DiaxMessage(
+                        new DiaxAuthor(hostname, sender),
+                        message,
+                        new Timestamp(System.currentTimeMillis()),
+                        new DiaxChannel(channel, channel)
+                );
+                Main.getHandler().execute(new DiaxIRCBot(), dmsg);
+            }
+        };
+        bot.changeNick("Diax");
+        bot.connect("irc.domirc.net", 6667);
+        bot.joinChannel("#diax.me");
         return this;
     }
 
     @Override
-    public AbstractDiaxBot messageTo(DiaxChannel channel, String message) {
-        writeToChannel(message, channel.getName());
+    public AbstractDiaxBot stop() throws Exception {
+        bot.dispose();
+        bot.disconnect();
+        bot = null;
         return this;
     }
 
-    private DiaxIRCBot writeToChannel(String message, String... channels) {
-        Arrays.stream(channels).forEach(channel -> writeMessage(String.format("PRIVMSG %s %s", channel, message)));
-        return this;
-    }
-
-    private DiaxIRCBot writeMessage(String message) {
-        if (!socket.isConnected())
-            throw new IllegalArgumentException("Attempted to send a message on a closed socket.");
-        try {
-            writer.write(message + "\r\n");
-            writer.flush();
-        } catch (IOException e) {
-            System.err.println("Failed to write message to server!");
-            e.printStackTrace();
-        }
+    @Override
+    public AbstractDiaxBot messageTo(DiaxChannel channel, String message) throws Exception {
+        bot.sendMessage(channel.getIdentifier(), message);
         return this;
     }
 }

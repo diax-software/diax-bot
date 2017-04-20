@@ -31,10 +31,10 @@ public interface DiaxBotImpl {
     /**
      * @return The instance of the bot, useful for chaining.
      */
-    AbstractDiaxBot messageTo(DiaxChannel channel, DiaxMessage message);
+    AbstractDiaxBot messageTo(DiaxChannel channel, DiaxMessage message) throws Exception;
 
     /**
      * @return The instance of the bot, useful for chaining.
      */
-    AbstractDiaxBot messageTo(DiaxChannel channel, String message);
+    AbstractDiaxBot messageTo(DiaxChannel channel, String message) throws Exception;
 }

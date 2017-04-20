@@ -78,5 +78,10 @@
             <artifactId>JDA</artifactId>
             <version>3.0.0_177</version>
         </dependency>
+        <dependency>
+            <groupId>pircbot</groupId>
+            <artifactId>pircbot</artifactId>
+            <version>1.5.0</version>
+        </dependency>
     </dependencies>
 </project>
