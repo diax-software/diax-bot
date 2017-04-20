@@ -1,8 +1,8 @@
 package me.diax.bot.bots.irc;
 
+import me.diax.bot.DiaxCommandHandler;
 import me.diax.bot.Main;
 import me.diax.bot.lib.bot.AbstractDiaxBot;
-import me.diax.bot.lib.command.DiaxCommandHandler;
 import me.diax.bot.lib.objects.DiaxAuthor;
 import me.diax.bot.lib.objects.DiaxChannel;
 import me.diax.bot.lib.objects.DiaxMessage;

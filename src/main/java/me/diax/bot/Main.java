@@ -1,11 +1,13 @@
 package me.diax.bot;
 
-import com.google.inject.*;
-import com.google.inject.name.Names;
+import com.google.inject.Binder;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 import me.diax.bot.bots.irc.DiaxIRCBot;
-import me.diax.bot.lib.ComponentProvider;
 import me.diax.bot.lib.bot.AbstractDiaxBot;
-import me.diax.bot.lib.command.DiaxCommandHandler;
+import me.diax.bot.lib.providers.ComponentProvider;
+import me.diax.bot.lib.providers.DiaxCommandProvider;
 
 /**
  * Created by comportment on 17/04/17.
@@ -15,23 +17,18 @@ import me.diax.bot.lib.command.DiaxCommandHandler;
 public class Main implements ComponentProvider, Module {
 
     private final Injector injector;
-    private DiaxCommandHandler handler;
-
+    private final DiaxCommandHandler handler;
 
     public Main() {
         injector = Guice.createInjector(this);
+        handler = injector.getInstance(DiaxCommandHandler.class);
     }
 
     public static void main(String[] args) throws Exception {
         new Main().main();
     }
 
-    public DiaxCommandHandler getHandler() {
-        return handler;
-    }
-
     private void main() throws Exception {
-        handler  = new Main().getInstance(DiaxCommandHandler.class);
         AbstractDiaxBot bot = injector.getInstance(DiaxIRCBot.class).start();
         //AbstractDiaxAudioBot bot2 = new DiaxDiscordBot().start();
     }
@@ -39,7 +36,8 @@ public class Main implements ComponentProvider, Module {
     @Override
     public void configure(Binder binder) {
         binder.bind(ComponentProvider.class).toInstance(this);
-        binder.bind(DiaxCommandHandler.class).toInstance(injector.getInstance(DiaxCommandHandler.class));
+        binder.bind(DiaxCommandProvider.class.to(DiaxCommandHandler.class);
+        binder.bind(DiaxCommandHandler.class).toInstance(handler);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package me.diax.bot.bots.discord;
 
+import me.diax.bot.DiaxCommandHandler;
 import me.diax.bot.Main;
 import me.diax.bot.lib.bot.AbstractDiaxAudioBot;
-import me.diax.bot.lib.command.DiaxCommandHandler;
 import me.diax.bot.lib.exceptions.BotStartException;
 import me.diax.bot.lib.exceptions.BotStopException;
 import me.diax.bot.lib.objects.DiaxAuthor;
