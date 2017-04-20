@@ -1,8 +1,8 @@
-package me.diax.bot.bots.discord;
+package me.diax.bot.bots;
 
-import me.diax.bot.DiaxCommandHandler;
 import me.diax.bot.Main;
 import me.diax.bot.lib.bot.AbstractDiaxAudioBot;
+import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.BotStartException;
 import me.diax.bot.lib.exceptions.BotStopException;
 import me.diax.bot.lib.objects.DiaxAuthor;
@@ -27,10 +27,10 @@ import java.sql.Timestamp;
 public class DiaxDiscordBot extends AbstractDiaxAudioBot {
 
     private static JDA jda;
-    private DiaxCommandHandler handler;
+    private DiaxCommandProvider handler;
 
     @Inject
-    public DiaxDiscordBot(DiaxCommandHandler handler) {
+    public DiaxDiscordBot(DiaxCommandProvider handler) {
         this.handler = handler;
     }
 

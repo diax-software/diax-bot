@@ -1,5 +1,8 @@
 package me.diax.bot.lib.command;
 
+import me.diax.bot.lib.bot.AbstractDiaxBot;
+import me.diax.bot.lib.objects.DiaxMessage;
+
 import java.util.Set;
 
 /**
@@ -16,4 +19,6 @@ public interface DiaxCommandProvider {
     DiaxCommandDescription find(String input);
 
     AbstractDiaxCommand newInstance(DiaxCommandDescription description);
+
+    boolean execute(AbstractDiaxBot bot, DiaxMessage input);
 }

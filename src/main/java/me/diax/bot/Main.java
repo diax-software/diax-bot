@@ -4,9 +4,10 @@ import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import me.diax.bot.bots.irc.DiaxIRCBot;
-import me.diax.bot.lib.bot.AbstractDiaxBot;
+import com.google.inject.name.Names;
+import me.diax.bot.bots.DiaxIRCBot;
 import me.diax.bot.lib.ComponentProvider;
+import me.diax.bot.lib.bot.AbstractDiaxBot;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 
 /**
@@ -36,8 +37,8 @@ public class Main implements ComponentProvider, Module {
     @Override
     public void configure(Binder binder) {
         binder.bind(ComponentProvider.class).toInstance(this);
+        binder.bind(String.class).annotatedWith(Names.named("prefix")).toInstance("<>");
         binder.bind(DiaxCommandProvider.class).to(DiaxCommandHandler.class);
-        binder.bind(DiaxCommandHandler.class).toInstance(handler);
     }
 
     @Override

@@ -1,8 +1,8 @@
-package me.diax.bot.bots.irc;
+package me.diax.bot.bots;
 
-import me.diax.bot.DiaxCommandHandler;
 import me.diax.bot.Main;
 import me.diax.bot.lib.bot.AbstractDiaxBot;
+import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.objects.DiaxAuthor;
 import me.diax.bot.lib.objects.DiaxChannel;
 import me.diax.bot.lib.objects.DiaxMessage;
@@ -21,10 +21,10 @@ import java.sql.Timestamp;
 public class DiaxIRCBot extends AbstractDiaxBot {
 
     private static PircBot bot;
-    private DiaxCommandHandler handler;
+    private DiaxCommandProvider handler;
 
     @Inject
-    public DiaxIRCBot(DiaxCommandHandler handler) {
+    public DiaxIRCBot(DiaxCommandProvider handler) {
         this.handler = handler;
     }
 
