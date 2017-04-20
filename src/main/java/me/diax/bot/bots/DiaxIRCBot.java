@@ -31,7 +31,6 @@ public class DiaxIRCBot extends AbstractDiaxBot {
     @Override
     public AbstractDiaxBot start() throws Exception {
         bot = new PircBot() {
-
             @Override
             protected void onMessage(String channel, String sender, String login, String hostname, String message) {
                 DiaxMessage dmsg = new DiaxMessage(

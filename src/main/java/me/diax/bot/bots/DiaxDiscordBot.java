@@ -52,20 +52,20 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
         int amount = getRecommendedShards();
         SHARDS = new JDA[amount >= 3 ? amount : 1];
         for (int i = 0; i < SHARDS.length; i++) {
+            if (SHARDS[i] == null) continue;
             JDA jda = null;
             try {
                 JDABuilder builder = new JDABuilder(AccountType.BOT)
                         .addEventListener(new ListenerAdapter() {
                             @Override
                             public void onMessageReceived(MessageReceivedEvent event) {
-                                DiaxMessage message = new DiaxMessage(
-                                        new DiaxAuthor(
-                                                event.getAuthor().getAvatarId(),
-                                                event.getAuthor().getName()),
+                                DiaxMessage dmsg = new DiaxMessage(
+                                        new DiaxAuthor(event.getAuthor().getAsMention(), event.getAuthor().getName()),
                                         event.getMessage().getRawContent(),
-                                        new Timestamp(1000 * event.getMessage().getCreationTime().toEpochSecond()),
-                                        new DiaxChannel(event.getChannel().getId(), event.getChannel().getName()));
-                                handler.execute(new Main().getInstance(DiaxDiscordBot.class), message);
+                                        new Timestamp(System.currentTimeMillis()),
+                                        new DiaxChannel(event.getChannel().getId(), event.getChannel().getName())
+                                );
+                                handler.execute(new Main().getInstance(DiaxIRCBot.class), dmsg);
                             }
                         })
                         .setAudioEnabled(true)
@@ -81,6 +81,7 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
                 SHARDS[i] = jda;
             }
         }
+        System.out.println("Started.");
         this.setStarted(true);
         return this;
     }
@@ -95,6 +96,8 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
             } catch (Exception ignored) {
             }
         });
+        Arrays.asList(SHARDS).clear();
+        System.out.println("Stopped.");
         this.setStarted(false);
         return this;
     }
@@ -117,6 +120,10 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
     }
 
     private TextChannel findChannel(long id) {
-        return Arrays.stream(SHARDS).flatMap(shard -> shard.getTextChannels().stream()).filter(textChannel -> textChannel.getIdLong() == id).findFirst().get();
+        return SHARDS[getShard(id)].getTextChannelById(id);
+    }
+
+    private int getShard(long guildID) {
+        return (int) ((guildID >> 22) % SHARDS[0].getShardInfo().getShardTotal());
     }
 }

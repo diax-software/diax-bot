@@ -1,12 +1,12 @@
 package me.diax.bot;
 
+import me.diax.bot.lib.ComponentProvider;
 import me.diax.bot.lib.bot.AbstractDiaxBot;
 import me.diax.bot.lib.command.AbstractDiaxCommand;
 import me.diax.bot.lib.command.DiaxCommandDescription;
+import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.NotEnoughArgsException;
 import me.diax.bot.lib.objects.DiaxMessage;
-import me.diax.bot.lib.ComponentProvider;
-import me.diax.bot.lib.command.DiaxCommandProvider;
 import org.reflections.Reflections;
 
 import javax.inject.Inject;
@@ -37,12 +37,11 @@ class DiaxCommandHandler implements DiaxCommandProvider {
         registerCommands();
     }
 
+    @SuppressWarnings("unchecked")
     public void registerCommands() {
         Reflections reflections = new Reflections(COMMAND_PACKAGE);
         Set<Class<?>> types = reflections.getTypesAnnotatedWith(DiaxCommandDescription.class);
-        types.forEach(cmd -> {
-            commands.put(cmd.getAnnotation(DiaxCommandDescription.class), (Class<? extends AbstractDiaxCommand>) cmd);
-        });
+        types.forEach(cmd -> commands.put(cmd.getAnnotation(DiaxCommandDescription.class), (Class<? extends AbstractDiaxCommand>) cmd));
     }
 
     public AbstractDiaxCommand newInstance(DiaxCommandDescription description) {
@@ -70,6 +69,7 @@ class DiaxCommandHandler implements DiaxCommandProvider {
     }
 
     public boolean execute(AbstractDiaxBot bot, DiaxMessage input) {
+        System.out.println("triggered");
         if (!input.getContent().startsWith(prefix)) return false;
         System.out.println(input.getContent());
         String content = input.getContent().replaceFirst(prefix, "").trim();
