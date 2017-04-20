@@ -1,9 +1,6 @@
 package me.diax.bot;
 
-import com.google.inject.Binder;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
+import com.google.inject.*;
 import com.google.inject.name.Names;
 import me.diax.bot.bots.irc.DiaxIRCBot;
 import me.diax.bot.lib.ComponentProvider;
@@ -17,12 +14,12 @@ import me.diax.bot.lib.command.DiaxCommandHandler;
  */
 public class Main implements ComponentProvider, Module {
 
-    private final DiaxCommandHandler handler;
     private final Injector injector;
+    private DiaxCommandHandler handler;
+
 
     public Main() {
         injector = Guice.createInjector(this);
-        handler = this.getInstance(DiaxCommandHandler.class);
     }
 
     public static void main(String[] args) throws Exception {
@@ -34,6 +31,7 @@ public class Main implements ComponentProvider, Module {
     }
 
     private void main() throws Exception {
+        handler  = new Main().getInstance(DiaxCommandHandler.class);
         AbstractDiaxBot bot = injector.getInstance(DiaxIRCBot.class).start();
         //AbstractDiaxAudioBot bot2 = new DiaxDiscordBot().start();
     }
@@ -42,7 +40,6 @@ public class Main implements ComponentProvider, Module {
     public void configure(Binder binder) {
         binder.bind(ComponentProvider.class).toInstance(this);
         binder.bind(DiaxCommandHandler.class).toInstance(injector.getInstance(DiaxCommandHandler.class));
-        binder.bind(String.class).annotatedWith(Names.named("prefix")).toInstance("<>");
     }
 
     @Override

@@ -18,9 +18,9 @@ public class DiaxCommandHandler {
     private final String prefix;
 
     @Inject
-    public DiaxCommandHandler(DiaxCommands commands, @Named(value = "prefix") String prefix) {
+    public DiaxCommandHandler(DiaxCommands commands) {
         this.commands = commands;
-        this.prefix = prefix;
+        this.prefix   = "<>";
     }
 
     public boolean execute(AbstractDiaxBot bot, DiaxMessage input) {
