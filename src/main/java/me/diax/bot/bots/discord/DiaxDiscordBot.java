@@ -28,7 +28,7 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
     public DiaxDiscordBot start() throws Exception {
         if (this.hasStarted()) throw new BotStartException("Bot has already started.");
         System.out.println("Starting...");
-        jda = new JDABuilder(AccountType.BOT).setToken("-").addEventListener(
+        jda = new JDABuilder(AccountType.BOT).setToken("---").addEventListener(
                 new ListenerAdapter() {
                     @Override
                     public void onMessageReceived(MessageReceivedEvent event) {

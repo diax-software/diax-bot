@@ -33,8 +33,9 @@ public class DiaxIRCBot extends AbstractDiaxBot {
                 Main.getHandler().execute(new DiaxIRCBot(), dmsg);
             }
         };
-        bot.changeNick("Diax");
         bot.connect("irc.domirc.net", 6667);
+        bot.setAutoNickChange(true);
+        bot.changeNick("Diax");
         bot.joinChannel("#diax.me");
         return this;
     }
