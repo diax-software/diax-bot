@@ -1,4 +1,4 @@
-package me.diax.bot.lib.providers;
+package me.diax.bot.lib;
 
 /**
  * Created by comportment on 20/04/17.

@@ -6,8 +6,8 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import me.diax.bot.bots.irc.DiaxIRCBot;
 import me.diax.bot.lib.bot.AbstractDiaxBot;
-import me.diax.bot.lib.providers.ComponentProvider;
-import me.diax.bot.lib.providers.DiaxCommandProvider;
+import me.diax.bot.lib.ComponentProvider;
+import me.diax.bot.lib.command.DiaxCommandProvider;
 
 /**
  * Created by comportment on 17/04/17.
@@ -36,7 +36,7 @@ public class Main implements ComponentProvider, Module {
     @Override
     public void configure(Binder binder) {
         binder.bind(ComponentProvider.class).toInstance(this);
-        binder.bind(DiaxCommandProvider.class.to(DiaxCommandHandler.class);
+        binder.bind(DiaxCommandProvider.class).to(DiaxCommandHandler.class);
         binder.bind(DiaxCommandHandler.class).toInstance(handler);
     }
 

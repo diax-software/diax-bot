@@ -1,7 +1,4 @@
-package me.diax.bot.lib.providers;
-
-import me.diax.bot.lib.command.AbstractDiaxCommand;
-import me.diax.bot.lib.command.DiaxCommandDescription;
+package me.diax.bot.lib.command;
 
 import java.util.Set;
 

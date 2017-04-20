@@ -5,8 +5,8 @@ import me.diax.bot.lib.command.AbstractDiaxCommand;
 import me.diax.bot.lib.command.DiaxCommandDescription;
 import me.diax.bot.lib.exceptions.NotEnoughArgsException;
 import me.diax.bot.lib.objects.DiaxMessage;
-import me.diax.bot.lib.providers.ComponentProvider;
-import me.diax.bot.lib.providers.DiaxCommandProvider;
+import me.diax.bot.lib.ComponentProvider;
+import me.diax.bot.lib.command.DiaxCommandProvider;
 import org.reflections.Reflections;
 
 import javax.inject.Inject;
@@ -22,7 +22,7 @@ import java.util.Set;
  * Crystal can do a lot better.
  */
 @Singleton
-public class DiaxCommandHandler implements DiaxCommandProvider {
+class DiaxCommandHandler implements DiaxCommandProvider {
 
     private static final String COMMAND_PACKAGE = "me.diax.bot.commands";
     private final Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> commands;
