@@ -35,7 +35,7 @@ import java.util.Arrays;
 public class DiaxDiscordBot extends AbstractDiaxAudioBot {
 
     private static JDA[] SHARDS;
-    private static String TOKEN = "---";
+    private static String TOKEN = "--";
     private final String prefix;
     private DiaxCommandProvider handler;
 
