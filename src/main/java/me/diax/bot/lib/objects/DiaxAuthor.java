@@ -15,7 +15,7 @@ public class DiaxAuthor {
      */
     public DiaxAuthor(String fullName, String simpleName) {
         this.fullName = fullName;
-        this.simpleName= simpleName;
+        this.simpleName = simpleName;
     }
 
     /**

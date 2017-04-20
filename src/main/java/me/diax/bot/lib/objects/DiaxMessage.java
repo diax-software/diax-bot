@@ -53,6 +53,7 @@ public class DiaxMessage implements Comparable<DiaxMessage> {
     }
 
     /**
+     *
      * @return The message the channel has been sent in.
      */
     public DiaxChannel getChannel() {

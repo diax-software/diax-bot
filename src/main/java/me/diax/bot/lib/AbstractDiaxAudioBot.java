@@ -32,6 +32,13 @@ public abstract class AbstractDiaxAudioBot extends AbstractDiaxBot {
     }
 
     /**
+     * @return The current playing track.
+     */
+    public DiaxAudioTrack getCurrentTrack() {
+        return currentTrack;
+    }
+
+    /**
      *
      * @param track The track to set as currently playing.
      * @return An instance of the bot, useful for chaining.
@@ -39,13 +46,5 @@ public abstract class AbstractDiaxAudioBot extends AbstractDiaxBot {
     public AbstractDiaxAudioBot setCurrentTrack(DiaxAudioTrack track) {
         currentTrack = track;
         return this;
-    }
-
-    /**
-     *
-     * @return The current playing track.
-     */
-    public DiaxAudioTrack getCurrentTrack() {
-        return currentTrack;
     }
 }

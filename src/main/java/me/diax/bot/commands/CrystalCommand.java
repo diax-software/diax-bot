@@ -14,7 +14,7 @@ import me.diax.bot.lib.objects.DiaxMessage;
 public class CrystalCommand extends AbstractDiaxCommand {
 
     public boolean execute(AbstractDiaxBot bot, DiaxMessage message, String raw) {
-        bot.messageTo(message.getChannel(), "Sucks.");
+        bot.messageTo(message.getChannel(), "Sucks");
         return true;
     }
 }
