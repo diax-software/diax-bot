@@ -9,13 +9,29 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by comportment on 20/04/17.
+ * Created by Comportment on 20/04/17.
+ *
+ * With some help from bcwfwalshy
  */
 public class DiaxScheduler {
 
     private static final ScheduledExecutorService timer = Executors.newScheduledThreadPool(10, r -> new Thread(r, "Diax Scheduled Task"));
     private static final Map<String, ScheduledFuture<?>> tasks = new HashMap<>();
 
+    /**
+     * Schedules a new repeating task best to call on it using a lambda expression.
+     * <p>
+     * <code> DiaxScheduler.scheduleRepeating(() -> {
+     * //The stuff you want to do here.
+     * }, "Task name", 1L, 1L);
+     * </code>
+     *
+     * @param task     The task you want to run.
+     * @param name     The name of the task.
+     * @param delay    The millisecond delay before the task first starts.
+     * @param interval The millisecond interval before the task repeats.
+     * @return If the task could be made, false if the task already exists.
+     */
     public static boolean scheduleRepeating(Runnable task, String name, long delay, long interval) {
         if (tasks.containsKey(name)) return false;
         tasks.put(name, timer.scheduleAtFixedRate(() -> {
@@ -28,10 +44,22 @@ public class DiaxScheduler {
         return true;
     }
 
+    /**
+     * Delays the given task by the amount of milliseconds given.
+     *
+     * @param task The task that should be delayed.
+     * @param delay The delay in milliseconds that should be given to the task.
+     */
     public static void delayTask(Runnable task, long delay) {
         timer.schedule(task, delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Cancels a task related to the one with the name given.
+     *
+     * @param taskName The name of the task to cancel.
+     * @return <code>true</code> if the task could be cancelled.
+     */
     public static boolean cancelTask(String taskName) {
         Iterator<Map.Entry<String, ScheduledFuture<?>>> i = tasks.entrySet().iterator();
         while (i.hasNext()) {

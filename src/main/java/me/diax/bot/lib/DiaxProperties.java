@@ -8,7 +8,7 @@ import com.knockturnmc.api.util.Property;
  * <p>
  * Thanking Knockturn once again for an amazing lib.
  */
-public class DiaxProperties extends NamedProperties {
+public final class DiaxProperties extends NamedProperties {
 
     @Property(value = "prefix", defaultvalue = "<<")
     private String prefix;

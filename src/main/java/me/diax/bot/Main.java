@@ -21,7 +21,7 @@ import java.util.Properties;
  *
  * Better than the last version
  */
-public class Main implements ComponentProvider, Module {
+public final class Main implements ComponentProvider, Module {
 
     private final Injector injector;
     private final DiaxProperties properties;

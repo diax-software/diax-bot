@@ -22,7 +22,7 @@ import java.util.Set;
  * Crystal can do a lot better.
  */
 @Singleton
-class DiaxCommandHandler implements DiaxCommandProvider {
+public final class DiaxCommandHandler implements DiaxCommandProvider {
 
     private static final String COMMAND_PACKAGE = "me.diax.bot.commands";
     private static final Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> commands = new HashMap<>();
@@ -70,7 +70,6 @@ class DiaxCommandHandler implements DiaxCommandProvider {
 
     public boolean execute(AbstractDiaxBot bot, DiaxMessage input) {
         if (!input.getContent().startsWith(prefix)) return false;
-        System.out.println("triggered");
         System.out.println(input.getContent());
         String content = input.getContent().replaceFirst(prefix, "").trim();
         DiaxCommandDescription description = find(content.split(" ")[0]);
