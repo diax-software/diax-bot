@@ -1,12 +1,15 @@
-package me.diax.bot.bots.irc;
+package me.diax.bot.bots;
 
 import me.diax.bot.Main;
-import me.diax.bot.lib.AbstractDiaxBot;
+import me.diax.bot.lib.bot.AbstractDiaxBot;
+import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.objects.DiaxAuthor;
 import me.diax.bot.lib.objects.DiaxChannel;
 import me.diax.bot.lib.objects.DiaxMessage;
 import org.jibble.pircbot.PircBot;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.sql.Timestamp;
 
 /**
@@ -14,14 +17,20 @@ import java.sql.Timestamp;
  * <p>
  * Lets make this pretty again.
  */
+@Singleton
 public class DiaxIRCBot extends AbstractDiaxBot {
 
     private static PircBot bot;
+    private DiaxCommandProvider handler;
+
+    @Inject
+    public DiaxIRCBot(DiaxCommandProvider handler) {
+        this.handler = handler;
+    }
 
     @Override
     public AbstractDiaxBot start() throws Exception {
         bot = new PircBot() {
-
             @Override
             protected void onMessage(String channel, String sender, String login, String hostname, String message) {
                 DiaxMessage dmsg = new DiaxMessage(
@@ -30,11 +39,12 @@ public class DiaxIRCBot extends AbstractDiaxBot {
                         new Timestamp(System.currentTimeMillis()),
                         new DiaxChannel(channel, channel)
                 );
-                Main.getHandler().execute(new DiaxIRCBot(), dmsg);
+                handler.execute(new Main().getInstance(DiaxIRCBot.class), dmsg);
             }
         };
-        bot.changeNick("Diax");
         bot.connect("irc.domirc.net", 6667);
+        bot.setAutoNickChange(true);
+        bot.changeNick("Diax");
         bot.joinChannel("#diax.me");
         return this;
     }
