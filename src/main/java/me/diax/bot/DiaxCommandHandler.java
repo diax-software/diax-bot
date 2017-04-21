@@ -70,7 +70,6 @@ public final class DiaxCommandHandler implements DiaxCommandProvider {
 
     public boolean execute(AbstractDiaxBot bot, DiaxMessage input) {
         if (!input.getContent().startsWith(prefix)) return false;
-        System.out.println(input.getContent());
         String content = input.getContent().replaceFirst(prefix, "").trim();
         DiaxCommandDescription description = find(content.split(" ")[0]);
         if (description == null) return false;
