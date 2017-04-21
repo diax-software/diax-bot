@@ -1,7 +1,7 @@
 package me.diax.bot.bots;
 
 import com.mashape.unirest.http.Unirest;
-import me.diax.bot.Main;
+import me.diax.bot.lib.ComponentProvider;
 import me.diax.bot.lib.bot.AbstractDiaxAudioBot;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.BotStartException;
@@ -38,11 +38,13 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
     private static String TOKEN;
     private final String prefix;
     private final DiaxCommandProvider handler;
+    private final ComponentProvider provider;
 
     @Inject
-    public DiaxDiscordBot(DiaxCommandProvider handler, @Named("prefix") String prefix, @Named("discord_token") String token) {
+    public DiaxDiscordBot(DiaxCommandProvider handler, ComponentProvider provider, @Named("prefix") String prefix, @Named("discord_token") String token) {
         this.handler = handler;
         this.prefix = prefix;
+        this.provider = provider;
         TOKEN = token;
     }
 
@@ -87,7 +89,7 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
                                         new Timestamp(System.currentTimeMillis()),
                                         new DiaxChannel(event.getChannel().getId(), event.getChannel().getName())
                                 );
-                                handler.execute(new Main().getInstance(DiaxDiscordBot.class), dmsg);
+                                handler.execute(provider.getInstance(DiaxDiscordBot.class), dmsg);
                             }
                         })
                         .setAudioEnabled(true)

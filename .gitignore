@@ -2,3 +2,4 @@
 Diax-Bot.iml
 target/
 dependency-reduced-pom.xml
+*.properties

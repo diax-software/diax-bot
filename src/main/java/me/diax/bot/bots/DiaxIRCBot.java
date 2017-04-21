@@ -1,6 +1,6 @@
 package me.diax.bot.bots;
 
-import me.diax.bot.Main;
+import me.diax.bot.lib.ComponentProvider;
 import me.diax.bot.lib.bot.AbstractDiaxBot;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.objects.DiaxAuthor;
@@ -21,11 +21,13 @@ import java.sql.Timestamp;
 public class DiaxIRCBot extends AbstractDiaxBot {
 
     private static PircBot bot;
-    private DiaxCommandProvider handler;
+    private final DiaxCommandProvider handler;
+    private final ComponentProvider provider;
 
     @Inject
-    public DiaxIRCBot(DiaxCommandProvider handler) {
+    public DiaxIRCBot(ComponentProvider provider, DiaxCommandProvider handler) {
         this.handler = handler;
+        this.provider = provider;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class DiaxIRCBot extends AbstractDiaxBot {
                         new Timestamp(System.currentTimeMillis()),
                         new DiaxChannel(channel, channel)
                 );
-                handler.execute(new Main().getInstance(DiaxIRCBot.class), dmsg);
+                handler.execute(provider.getInstance(DiaxIRCBot.class), dmsg);
             }
         };
         bot.connect("irc.domirc.net", 6667);
