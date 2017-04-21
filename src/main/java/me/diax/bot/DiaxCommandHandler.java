@@ -25,23 +25,23 @@ import java.util.Set;
 class DiaxCommandHandler implements DiaxCommandProvider {
 
     private static final String COMMAND_PACKAGE = "me.diax.bot.commands";
-    private final Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> commands;
+    private static final Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> commands = new HashMap<>();
+
+    static {
+        Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> cmds = new HashMap<>();
+        Reflections reflections = new Reflections(COMMAND_PACKAGE);
+        Set<Class<?>> types = reflections.getTypesAnnotatedWith(DiaxCommandDescription.class);
+        types.forEach(cmd -> cmds.put(cmd.getAnnotation(DiaxCommandDescription.class), (Class<? extends AbstractDiaxCommand>) cmd));
+        commands.putAll(cmds);
+    }
+
     private final ComponentProvider provider;
     private final String prefix;
 
     @Inject
     DiaxCommandHandler(ComponentProvider provider, @Named("prefix") String prefix) {
         this.provider = provider;
-        this.commands = new HashMap<>();
         this.prefix = prefix;
-        registerCommands();
-    }
-
-    @SuppressWarnings("unchecked")
-    public void registerCommands() {
-        Reflections reflections = new Reflections(COMMAND_PACKAGE);
-        Set<Class<?>> types = reflections.getTypesAnnotatedWith(DiaxCommandDescription.class);
-        types.forEach(cmd -> commands.put(cmd.getAnnotation(DiaxCommandDescription.class), (Class<? extends AbstractDiaxCommand>) cmd));
     }
 
     public AbstractDiaxCommand newInstance(DiaxCommandDescription description) {

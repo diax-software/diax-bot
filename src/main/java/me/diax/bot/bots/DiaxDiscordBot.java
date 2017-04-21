@@ -37,13 +37,35 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
     private static JDA[] SHARDS;
     private static String TOKEN;
     private final String prefix;
-    private DiaxCommandProvider handler;
+    private final DiaxCommandProvider handler;
 
     @Inject
     public DiaxDiscordBot(DiaxCommandProvider handler, @Named("prefix") String prefix, @Named("discord_token") String token) {
         this.handler = handler;
         this.prefix = prefix;
         TOKEN = token;
+    }
+
+    private static int getRecommendedShards() {
+        try {
+
+            return Unirest.get("https://discordapp.com/api/gateway/bot")
+                    .header("Authorization", "Bot " + TOKEN)
+                    .header("Content-Type", "application/json").asJson().getBody().getObject().getInt("shards");
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    private static TextChannel findChannel(long id) {
+        System.out.println(id);
+        return SHARDS[getShard(id)].getTextChannelById(id);
+    }
+
+    private static int getShard(long guildID) {
+        JDA.ShardInfo info = SHARDS[0].getShardInfo();
+        int amount = (info == null ? 1 : info.getShardTotal());
+        return (int) ((guildID >> 22) % amount);
     }
 
     @Override
@@ -65,7 +87,7 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
                                         new Timestamp(System.currentTimeMillis()),
                                         new DiaxChannel(event.getChannel().getId(), event.getChannel().getName())
                                 );
-                                handler.execute(new Main().getInstance(DiaxIRCBot.class), dmsg);
+                                handler.execute(new Main().getInstance(DiaxDiscordBot.class), dmsg);
                             }
                         })
                         .setAudioEnabled(true)
@@ -106,24 +128,5 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
     public DiaxDiscordBot messageTo(DiaxChannel channel, String message) throws Exception {
         findChannel(Long.valueOf(channel.getIdentifier())).sendMessage(message).queue();
         return this;
-    }
-
-    private int getRecommendedShards() {
-        try {
-
-            return Unirest.get("https://discordapp.com/api/gateway/bot")
-                    .header("Authorization", "Bot " + TOKEN)
-                    .header("Content-Type", "application/json").asJson().getBody().getObject().getInt("shards");
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-
-    private TextChannel findChannel(long id) {
-        return SHARDS[getShard(id)].getTextChannelById(id);
-    }
-
-    private int getShard(long guildID) {
-        return (int) ((guildID >> 22) % SHARDS[0].getShardInfo().getShardTotal());
     }
 }

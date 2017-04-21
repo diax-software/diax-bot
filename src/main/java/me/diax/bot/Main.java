@@ -39,7 +39,7 @@ public class Main implements ComponentProvider, Module {
         binder.bind(ComponentProvider.class).toInstance(this);
         binder.bind(DiaxCommandProvider.class).to(DiaxCommandHandler.class);
         binder.bind(String.class).annotatedWith(Names.named("prefix")).toInstance(">>");
-        binder.bind(String.class).annotatedWith(Names.named("discord_token")).toInstance("==");
+        binder.bind(String.class).annotatedWith(Names.named("discord_token")).toInstance("---");
     }
 
     @Override
