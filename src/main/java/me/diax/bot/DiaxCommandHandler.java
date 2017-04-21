@@ -69,8 +69,8 @@ class DiaxCommandHandler implements DiaxCommandProvider {
     }
 
     public boolean execute(AbstractDiaxBot bot, DiaxMessage input) {
-        System.out.println("triggered");
         if (!input.getContent().startsWith(prefix)) return false;
+        System.out.println("triggered");
         System.out.println(input.getContent());
         String content = input.getContent().replaceFirst(prefix, "").trim();
         DiaxCommandDescription description = find(content.split(" ")[0]);

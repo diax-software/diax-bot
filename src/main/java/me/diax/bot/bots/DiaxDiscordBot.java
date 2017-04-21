@@ -35,14 +35,15 @@ import java.util.Arrays;
 public class DiaxDiscordBot extends AbstractDiaxAudioBot {
 
     private static JDA[] SHARDS;
-    private static String TOKEN = "--";
+    private static String TOKEN;
     private final String prefix;
     private DiaxCommandProvider handler;
 
     @Inject
-    public DiaxDiscordBot(DiaxCommandProvider handler, @Named("prefix") String prefix) {
+    public DiaxDiscordBot(DiaxCommandProvider handler, @Named("prefix") String prefix, @Named("discord_token") String token) {
         this.handler = handler;
         this.prefix = prefix;
+        TOKEN = token;
     }
 
     @Override
@@ -52,7 +53,6 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
         int amount = getRecommendedShards();
         SHARDS = new JDA[amount >= 3 ? amount : 1];
         for (int i = 0; i < SHARDS.length; i++) {
-            if (SHARDS[i] == null) continue;
             JDA jda = null;
             try {
                 JDABuilder builder = new JDABuilder(AccountType.BOT)
