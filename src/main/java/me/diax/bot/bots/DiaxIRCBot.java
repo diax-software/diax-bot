@@ -22,10 +22,10 @@ import java.sql.Timestamp;
 @Singleton
 public class DiaxIRCBot extends AbstractDiaxBot {
 
-    private static PircBot bot;
     private final DiaxCommandProvider handler;
     private final ComponentProvider provider;
     private final String prefix;
+    private PircBot bot;
 
     @Inject
     public DiaxIRCBot(ComponentProvider provider, DiaxCommandProvider handler, @Named("prefix") String prefix) {
