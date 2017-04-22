@@ -19,8 +19,8 @@ public class DiaxScheduler {
     private static final Map<String, ScheduledFuture<?>> tasks = new HashMap<>();
 
     /**
-     * Schedules a new repeating task best to call on it using a lambda expression.
-     * <p>
+     * Schedules a new repeating task, best to call this method using a lambda expression.
+     * <br>
      * <code> DiaxScheduler.scheduleRepeating(() -> {
      * //The stuff you want to do here.
      * }, "Task name", 1L, 1L);

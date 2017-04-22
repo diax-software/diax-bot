@@ -6,10 +6,8 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
 import com.knockturnmc.api.util.ConfigurationUtils;
-import me.diax.bot.bots.DiaxDiscordBot;
 import me.diax.bot.lib.ComponentProvider;
 import me.diax.bot.lib.DiaxProperties;
-import me.diax.bot.lib.bot.AbstractDiaxAudioBot;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 
 import java.io.File;
@@ -45,7 +43,7 @@ public final class Main implements ComponentProvider, Module {
 
     private void main() throws Exception {
         //AbstractDiaxBot bot = injector.getInstance(DiaxIRCBot.class).start();
-        AbstractDiaxAudioBot bot2 = injector.getInstance(DiaxDiscordBot.class).start();
+        //AbstractDiaxAudioBot bot2 = injector.getInstance(DiaxDiscordBot.class).start();
     }
 
     @Override

@@ -83,6 +83,7 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
                         .addEventListener(new ListenerAdapter() {
                             @Override
                             public void onMessageReceived(MessageReceivedEvent event) {
+                                if (!event.getMessage().getRawContent().startsWith(prefix)) return;
                                 DiaxMessage dmsg = new DiaxMessage(
                                         new DiaxAuthor(event.getAuthor().getAsMention(), event.getAuthor().getName()),
                                         event.getMessage().getRawContent(),
