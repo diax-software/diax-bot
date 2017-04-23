@@ -2,7 +2,7 @@ package me.diax.bot.bots;
 
 import com.mashape.unirest.http.Unirest;
 import me.diax.bot.lib.ComponentProvider;
-import me.diax.bot.lib.bot.AbstractDiaxAudioBot;
+import me.diax.bot.lib.bot.DiaxAudioBotImpl;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.BotStartException;
 import me.diax.bot.lib.exceptions.BotStopException;
@@ -32,7 +32,7 @@ import java.util.Arrays;
  * gr8 bot 100% working would use again.
  */
 @Singleton
-public class DiaxDiscordBot extends AbstractDiaxAudioBot {
+public class DiaxDiscordBot extends DiaxAudioBotImpl {
 
     private static JDA[] SHARDS;
     private static String TOKEN;
@@ -71,7 +71,7 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
     }
 
     @Override
-    public DiaxDiscordBot start() throws Exception {
+    public void start() throws Exception {
         if (this.hasStarted()) throw new BotStartException("Bot has already started.");
         System.out.println("Starting...");
         int amount = getRecommendedShards();
@@ -108,11 +108,10 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
         }
         System.out.println("Started.");
         this.setStarted(true);
-        return this;
     }
 
     @Override
-    public DiaxDiscordBot stop() throws Exception {
+    public void stop() throws Exception {
         if (!this.hasStarted()) throw new BotStopException("Bot has already stopped.");
         System.out.println("Stopping...");
         Arrays.stream(SHARDS).forEach(shard -> {
@@ -124,12 +123,10 @@ public class DiaxDiscordBot extends AbstractDiaxAudioBot {
         Arrays.asList(SHARDS).clear();
         System.out.println("Stopped.");
         this.setStarted(false);
-        return this;
     }
 
     @Override
-    public DiaxDiscordBot messageTo(DiaxChannel channel, String message) throws Exception {
+    public void messageTo(DiaxChannel channel, String message) throws Exception {
         findChannel(Long.valueOf(channel.getIdentifier())).sendMessage(message).queue();
-        return this;
     }
 }

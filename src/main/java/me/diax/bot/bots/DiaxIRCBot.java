@@ -1,7 +1,7 @@
 package me.diax.bot.bots;
 
 import me.diax.bot.lib.ComponentProvider;
-import me.diax.bot.lib.bot.AbstractDiaxBot;
+import me.diax.bot.lib.bot.DiaxBotImpl;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.BotStartException;
 import me.diax.bot.lib.objects.DiaxAuthor;
@@ -20,7 +20,7 @@ import java.sql.Timestamp;
  * Lets make this pretty again.
  */
 @Singleton
-public class DiaxIRCBot extends AbstractDiaxBot {
+public class DiaxIRCBot extends DiaxBotImpl {
 
     private final DiaxCommandProvider handler;
     private final ComponentProvider provider;
@@ -35,7 +35,7 @@ public class DiaxIRCBot extends AbstractDiaxBot {
     }
 
     @Override
-    public AbstractDiaxBot start() throws Exception {
+    public void start() throws Exception {
         if (this.hasStarted()) throw new BotStartException("Bot has already started.");
         bot = new PircBot() {
             @Override
@@ -54,21 +54,18 @@ public class DiaxIRCBot extends AbstractDiaxBot {
         bot.setAutoNickChange(true);
         bot.changeNick("Diax");
         bot.joinChannel("#diax.me");
-        return this;
     }
 
     @Override
-    public AbstractDiaxBot stop() throws Exception {
+    public void stop() throws Exception {
         if (!this.hasStarted()) throw new BotStartException("Bot has not started.");
         bot.dispose();
         bot.disconnect();
         bot = null;
-        return this;
     }
 
     @Override
-    public AbstractDiaxBot messageTo(DiaxChannel channel, String message) throws Exception {
+    public void messageTo(DiaxChannel channel, String message) throws Exception {
         bot.sendMessage(channel.getIdentifier(), message);
-        return this;
     }
 }

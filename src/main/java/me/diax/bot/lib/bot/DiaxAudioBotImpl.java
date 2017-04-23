@@ -10,7 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  *
  * An abstract class for bots that can use audio commands.
  */
-public abstract class AbstractDiaxAudioBot extends AbstractDiaxBot {
+public abstract class DiaxAudioBotImpl extends DiaxBotImpl implements DiaxAudioBot {
 
     private DiaxAudioTrack currentTrack;
     private BlockingQueue<DiaxAudioTrack> queue;
@@ -18,33 +18,20 @@ public abstract class AbstractDiaxAudioBot extends AbstractDiaxBot {
     /**
      * Used to reset the queue and the current track when a new instance of an AudioBot is made.
      */
-    public AbstractDiaxAudioBot() {
+    public DiaxAudioBotImpl() {
         currentTrack = null;
         queue = new LinkedBlockingQueue<>();
     }
 
-    /**
-     *
-     * @return The current queue of the music bot, sometimes null.
-     */
     public BlockingQueue<DiaxAudioTrack> getQueue() {
         return queue;
     }
 
-    /**
-     * @return The current playing track.
-     */
     public DiaxAudioTrack getCurrentTrack() {
         return currentTrack;
     }
 
-    /**
-     *
-     * @param track The track to set as currently playing.
-     * @return An instance of the bot, useful for chaining.
-     */
-    public AbstractDiaxAudioBot setCurrentTrack(DiaxAudioTrack track) {
+    public void setCurrentTrack(DiaxAudioTrack track) {
         currentTrack = track;
-        return this;
     }
 }

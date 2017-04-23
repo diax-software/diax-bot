@@ -1,40 +1,46 @@
 package me.diax.bot.lib.bot;
 
-import me.diax.bot.lib.exceptions.BotStartException;
-import me.diax.bot.lib.exceptions.BotStopException;
 import me.diax.bot.lib.objects.DiaxChannel;
 import me.diax.bot.lib.objects.DiaxMessage;
 
 /**
- * Created by Comportment on 18/04/17.
+ * Created by Comportment on 17/04/17.
  *
- * Does anyone read these? \o/
+ * An abstract class for bots that can use audio commands.
  */
-public interface DiaxBotImpl {
+public abstract class DiaxBotImpl implements DiaxBot {
 
     /**
-     * Starts an instance of the bot.
+     * Boolean value that represents if the bot is started or not.
+     */
+    private boolean started;
+
+    /**
      *
-     * @return The instance of the bot that was started, useful for chaining.
-     * @throws BotStartException If the bot could not be started.
+     * @return If this instance of the bot has been started.
      */
-    AbstractDiaxBot start() throws Exception;
+    public boolean hasStarted() {
+        return started;
+    }
 
     /**
-     * Stops the instance of the bot.
      *
-     * @return The instance of the bot that was stopped, useful for chaining.
-     * @throws BotStopException If the could could not be stopped.
+     * @param started A boolean to set the bot started or not.
+     * @return The instance of the bot that the started value was set for, useful for chaining.
      */
-    AbstractDiaxBot stop() throws Exception;
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
 
     /**
-     * @return The instance of the bot, useful for chaining.
+     * A method to send messages to channels.
+     *
+     * @param channel The channel to send the message to.
+     * @param message The message to send to the channel.
+     * @return The instance of the bot that sent the message, useful for chaining.
      */
-    AbstractDiaxBot messageTo(DiaxChannel channel, DiaxMessage message) throws Exception;
-
-    /**
-     * @return The instance of the bot, useful for chaining.
-     */
-    AbstractDiaxBot messageTo(DiaxChannel channel, String message) throws Exception;
+    @Override
+    public void messageTo(DiaxChannel channel, DiaxMessage message) throws Exception {
+        messageTo(channel, message.getContent());
+    }
 }

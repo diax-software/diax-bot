@@ -43,7 +43,7 @@ public final class Main implements ComponentProvider, Module {
 
     private void main() throws Exception {
         //AbstractDiaxBot bot = injector.getInstance(DiaxIRCBot.class).start();
-        //AbstractDiaxAudioBot bot2 = injector.getInstance(DiaxDiscordBot.class).start();
+        //DiaxAudioBotImpl bot2 = injector.getInstance(DiaxDiscordBot.class).start();
     }
 
     @Override

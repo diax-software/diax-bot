@@ -1,9 +1,9 @@
 package me.diax.bot;
 
 import me.diax.bot.lib.ComponentProvider;
-import me.diax.bot.lib.bot.AbstractDiaxBot;
-import me.diax.bot.lib.command.AbstractDiaxCommand;
+import me.diax.bot.lib.bot.DiaxBotImpl;
 import me.diax.bot.lib.command.DiaxCommandDescription;
+import me.diax.bot.lib.command.DiaxCommandImpl;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.NotEnoughArgsException;
 import me.diax.bot.lib.objects.DiaxMessage;
@@ -25,13 +25,13 @@ import java.util.Set;
 public final class DiaxCommandHandler implements DiaxCommandProvider {
 
     private static final String COMMAND_PACKAGE = "me.diax.bot.commands";
-    private static final Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> commands = new HashMap<>();
+    private static final Map<DiaxCommandDescription, Class<? extends DiaxCommandImpl>> commands = new HashMap<>();
 
     static {
-        Map<DiaxCommandDescription, Class<? extends AbstractDiaxCommand>> cmds = new HashMap<>();
+        Map<DiaxCommandDescription, Class<? extends DiaxCommandImpl>> cmds = new HashMap<>();
         Reflections reflections = new Reflections(COMMAND_PACKAGE);
         Set<Class<?>> types = reflections.getTypesAnnotatedWith(DiaxCommandDescription.class);
-        types.forEach(cmd -> cmds.put(cmd.getAnnotation(DiaxCommandDescription.class), (Class<? extends AbstractDiaxCommand>) cmd));
+        types.forEach(cmd -> cmds.put(cmd.getAnnotation(DiaxCommandDescription.class), (Class<? extends DiaxCommandImpl>) cmd));
         commands.putAll(cmds);
     }
 
@@ -44,8 +44,8 @@ public final class DiaxCommandHandler implements DiaxCommandProvider {
         this.prefix = prefix;
     }
 
-    public AbstractDiaxCommand newInstance(DiaxCommandDescription description) {
-        Class<? extends AbstractDiaxCommand> type;
+    public DiaxCommandImpl newInstance(DiaxCommandDescription description) {
+        Class<? extends DiaxCommandImpl> type;
         if (description != null && (type = commands.get(description)) != null) {
             return provider.getInstance(type);
         } else {
@@ -68,7 +68,7 @@ public final class DiaxCommandHandler implements DiaxCommandProvider {
         return null;
     }
 
-    public boolean execute(AbstractDiaxBot bot, DiaxMessage input) {
+    public boolean execute(DiaxBotImpl bot, DiaxMessage input) {
         if (!input.getContent().startsWith(prefix)) return false;
         String content = input.getContent().replaceFirst(prefix, "").trim();
         DiaxCommandDescription description = find(content.split(" ")[0]);
