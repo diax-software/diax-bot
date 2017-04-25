@@ -2,13 +2,13 @@ package me.diax.bot.bots;
 
 import com.mashape.unirest.http.Unirest;
 import me.diax.bot.lib.ComponentProvider;
+import me.diax.bot.lib.DiaxAuthor;
+import me.diax.bot.lib.DiaxChannel;
+import me.diax.bot.lib.DiaxMessage;
 import me.diax.bot.lib.bot.DiaxAudioBotImpl;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.BotStartException;
 import me.diax.bot.lib.exceptions.BotStopException;
-import me.diax.bot.lib.objects.DiaxAuthor;
-import me.diax.bot.lib.objects.DiaxChannel;
-import me.diax.bot.lib.objects.DiaxMessage;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;

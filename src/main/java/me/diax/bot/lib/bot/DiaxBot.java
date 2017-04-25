@@ -1,9 +1,9 @@
 package me.diax.bot.lib.bot;
 
+import me.diax.bot.lib.DiaxChannel;
+import me.diax.bot.lib.DiaxMessage;
 import me.diax.bot.lib.exceptions.BotStartException;
 import me.diax.bot.lib.exceptions.BotStopException;
-import me.diax.bot.lib.objects.DiaxChannel;
-import me.diax.bot.lib.objects.DiaxMessage;
 
 /**
  * Created by Comportment on 18/04/17.
@@ -31,10 +31,10 @@ public interface DiaxBot {
     /**
      * @return The instance of the bot, useful for chaining.
      */
-    void messageTo(DiaxChannel channel, DiaxMessage message) throws Exception;
+    void messageTo(DiaxChannel channel, DiaxMessage message);
 
     /**
      * @return The instance of the bot, useful for chaining.
      */
-    void messageTo(DiaxChannel channel, String message) throws Exception;
+    void messageTo(DiaxChannel channel, String message);
 }

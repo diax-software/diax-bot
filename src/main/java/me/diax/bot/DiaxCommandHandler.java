@@ -1,12 +1,13 @@
 package me.diax.bot;
 
 import me.diax.bot.lib.ComponentProvider;
+import me.diax.bot.lib.DiaxMessage;
 import me.diax.bot.lib.bot.DiaxBotImpl;
 import me.diax.bot.lib.command.DiaxCommandDescription;
 import me.diax.bot.lib.command.DiaxCommandImpl;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.NotEnoughArgsException;
-import me.diax.bot.lib.objects.DiaxMessage;
+import me.diax.bot.lib.exceptions.UnknownException;
 import org.reflections.Reflections;
 
 import javax.inject.Inject;
@@ -68,18 +69,17 @@ public final class DiaxCommandHandler implements DiaxCommandProvider {
         return null;
     }
 
-    public boolean execute(DiaxBotImpl bot, DiaxMessage input) {
-        if (!input.getContent().startsWith(prefix)) return false;
+    public void execute(DiaxBotImpl bot, DiaxMessage input) {
+        if (!input.getContent().startsWith(prefix)) return;
         String content = input.getContent().replaceFirst(prefix, "").trim();
         DiaxCommandDescription description = find(content.split(" ")[0]);
-        if (description == null) return false;
+        if (description == null) return;
         try {
             if (content.split(" ").length < description.minimumArgs())
-                throw new NotEnoughArgsException(description.name() + " needs " + description.minimumArgs() + " args.");
-            return newInstance(description).execute(bot, input, content);
+                throw new NotEnoughArgsException(new Throwable(this.getClass().toGenericString()));
+            newInstance(description).execute(bot, input, content);
         } catch (Exception e) {
-            System.err.println("Error executing: " + description.name());
-            return false;
+            throw new UnknownException(e);
         }
     }
 }

@@ -1,6 +1,6 @@
 package me.diax.bot.lib.bot;
 
-import me.diax.bot.lib.objects.DiaxAudioTrack;
+import me.diax.bot.lib.DiaxAudioTrack;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

@@ -1,4 +1,4 @@
-package me.diax.bot.lib.objects;
+package me.diax.bot.lib;
 
 /**
  * Created by Comportment on 18/04/17.

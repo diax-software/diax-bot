@@ -5,21 +5,9 @@ package me.diax.bot.lib.exceptions;
  * <p>
  * All the exceptions.
  */
-public class NotEnoughArgsException extends RuntimeException {
-
-    public NotEnoughArgsException() {
-        super();
-    }
-
-    public NotEnoughArgsException(String message) {
-        super(message);
-    }
+public class NotEnoughArgsException extends DiaxException {
 
     public NotEnoughArgsException(Throwable throwable) {
-        super(throwable);
-    }
-
-    public NotEnoughArgsException(String message, Throwable throwable) {
-        super(message, throwable);
+        super(ExceptionLevel.LOW, throwable, "Not enough arguments were supplied.");
     }
 }

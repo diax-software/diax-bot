@@ -1,7 +1,7 @@
 package me.diax.bot.lib.bot;
 
-import me.diax.bot.lib.objects.DiaxChannel;
-import me.diax.bot.lib.objects.DiaxMessage;
+import me.diax.bot.lib.DiaxChannel;
+import me.diax.bot.lib.DiaxMessage;
 
 /**
  * Created by Comportment on 17/04/17.

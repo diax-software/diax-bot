@@ -1,12 +1,12 @@
 package me.diax.bot.bots;
 
 import me.diax.bot.lib.ComponentProvider;
+import me.diax.bot.lib.DiaxAuthor;
+import me.diax.bot.lib.DiaxChannel;
+import me.diax.bot.lib.DiaxMessage;
 import me.diax.bot.lib.bot.DiaxBotImpl;
 import me.diax.bot.lib.command.DiaxCommandProvider;
 import me.diax.bot.lib.exceptions.BotStartException;
-import me.diax.bot.lib.objects.DiaxAuthor;
-import me.diax.bot.lib.objects.DiaxChannel;
-import me.diax.bot.lib.objects.DiaxMessage;
 import org.jibble.pircbot.PircBot;
 
 import javax.inject.Inject;
