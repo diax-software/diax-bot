@@ -40,7 +40,7 @@ public abstract class DiaxBotImpl implements DiaxBot {
      * @return The instance of the bot that sent the message, useful for chaining.
      */
     @Override
-    public void messageTo(DiaxChannel channel, DiaxMessage message) throws Exception {
+    public void messageTo(DiaxChannel channel, DiaxMessage message) {
         messageTo(channel, message.getContent());
     }
 }

@@ -36,7 +36,7 @@ public class DiaxIRCBot extends DiaxBotImpl {
 
     @Override
     public void start() throws Exception {
-        if (this.hasStarted()) throw new BotStartException("Bot has already started.");
+        if (this.hasStarted()) throw new BotStartException(new Throwable("Bot has already started."));
         bot = new PircBot() {
             @Override
             protected void onMessage(String channel, String sender, String login, String hostname, String message) {
@@ -58,14 +58,14 @@ public class DiaxIRCBot extends DiaxBotImpl {
 
     @Override
     public void stop() throws Exception {
-        if (!this.hasStarted()) throw new BotStartException("Bot has not started.");
+        if (!this.hasStarted()) throw new BotStartException(new Throwable("Bot has not started."));
         bot.dispose();
         bot.disconnect();
         bot = null;
     }
 
     @Override
-    public void messageTo(DiaxChannel channel, String message) throws Exception {
+    public void messageTo(DiaxChannel channel, String message) {
         bot.sendMessage(channel.getIdentifier(), message);
     }
 }

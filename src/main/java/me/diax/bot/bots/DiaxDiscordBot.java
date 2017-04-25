@@ -72,7 +72,7 @@ public class DiaxDiscordBot extends DiaxAudioBotImpl {
 
     @Override
     public void start() throws Exception {
-        if (this.hasStarted()) throw new BotStartException("Bot has already started.");
+        if (this.hasStarted()) throw new BotStartException(new Throwable("Bot has already started."));
         System.out.println("Starting...");
         int amount = getRecommendedShards();
         SHARDS = new JDA[amount >= 3 ? amount : 1];
@@ -112,7 +112,7 @@ public class DiaxDiscordBot extends DiaxAudioBotImpl {
 
     @Override
     public void stop() throws Exception {
-        if (!this.hasStarted()) throw new BotStopException("Bot has already stopped.");
+        if (!this.hasStarted()) throw new BotStopException(new Throwable("Bot has already stopped."));
         System.out.println("Stopping...");
         Arrays.stream(SHARDS).forEach(shard -> {
             try {
@@ -126,7 +126,7 @@ public class DiaxDiscordBot extends DiaxAudioBotImpl {
     }
 
     @Override
-    public void messageTo(DiaxChannel channel, String message) throws Exception {
+    public void messageTo(DiaxChannel channel, String message) {
         findChannel(Long.valueOf(channel.getIdentifier())).sendMessage(message).queue();
     }
 }
