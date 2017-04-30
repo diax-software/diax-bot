@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Comportment | comportment@diax.me
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package me.diax.bot;
 
 import com.google.inject.Binder;
@@ -5,57 +21,40 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
-import com.knockturnmc.api.util.ConfigurationUtils;
-import me.diax.bot.lib.ComponentProvider;
-import me.diax.bot.lib.DiaxProperties;
-import me.diax.bot.lib.command.DiaxCommandProvider;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.Properties;
+import me.diax.bot.api.Bot;
+import me.diax.bot.api.DiscordBot;
 
 /**
- * Created by Comportment on 17/04/17.
+ * Created by Comportment at 14:52 on 30/04/17
+ * https://github.com/Comportment | comportment@diax.me
  *
- * Better than the last version
+ * @author Comportment
  */
 public final class Main implements ComponentProvider, Module {
 
     private final Injector injector;
-    private final DiaxProperties properties;
 
     private Main() {
-        Properties sys = System.getProperties();
-        Properties config = new Properties();
-        String[] fields = {"discord_token", "prefix"};
-        Arrays.stream(fields).forEach(field -> sys.computeIfPresent(field, config::put));
-        properties = ConfigurationUtils.loadConfiguration(
-                this.getClass().getClassLoader(),
-                "diax.properties",
-                new File(System.getProperty("user.dir")),
-                DiaxProperties.class);
         injector = Guice.createInjector(this);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         new Main().main();
     }
 
-    private void main() throws Exception {
-        //AbstractDiaxBot bot = injector.getInstance(DiaxIRCBot.class).start();
-        //DiaxAudioBotImpl bot2 = injector.getInstance(DiaxDiscordBot.class).start();
-    }
-
-    @Override
-    public void configure(Binder binder) {
-        binder.bind(ComponentProvider.class).toInstance(this);
-        binder.bind(DiaxCommandProvider.class).to(DiaxCommandHandler.class);
-        binder.bind(String.class).annotatedWith(Names.named("prefix")).toInstance(properties.getPrefix());
-        binder.bind(String.class).annotatedWith(Names.named("discord_token")).toInstance(properties.getDiscordToken());
+    private void main() {
+        Bot bot = getInstance(DiscordBot.class);
+        bot.start();
     }
 
     @Override
     public <T> T getInstance(Class<T> type) {
         return injector.getInstance(type);
+    }
+
+    @Override
+    public void configure(Binder binder) {
+        binder.bind(ComponentProvider.class).toInstance(this);
+        binder.bind(String.class).annotatedWith(Names.named("token")).toInstance("---");
     }
 }
