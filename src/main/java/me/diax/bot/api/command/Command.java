@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api;
+package me.diax.bot.api.command;
 
-import me.diax.bot.api.channel.Channel;
+import me.diax.bot.api.Message;
 
 /**
- * Created by Comportment at 15:33 on 01/05/17
+ * Created by Comportment at 19:43 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public interface Message extends Identifiable {
+@FunctionalInterface
+public interface Command {
 
-    User getAuthor();
-
-    Channel getChannel();
-
-    MessageContent getContent();
+    void execute(Message message, String args);
 }

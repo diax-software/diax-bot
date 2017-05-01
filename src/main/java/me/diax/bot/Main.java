@@ -25,6 +25,8 @@ import me.diax.bot.api.bot.Bot;
 import me.diax.bot.api.bot.DiscordBot;
 import me.diax.bot.api.channel.Channel;
 import me.diax.bot.api.channel.DiscordChannel;
+import me.diax.bot.api.command.CommandProvider;
+import me.diax.bot.api.command.Commands;
 
 import java.io.File;
 import java.util.Arrays;
@@ -75,5 +77,6 @@ public final class Main implements ComponentProvider, Module {
     public void configure(Binder binder) {
         binder.bind(ComponentProvider.class).toInstance(this);
         binder.bind(DiaxProperties.class).toInstance(properties);
+        binder.bind(CommandProvider.class).to(Commands.class);
     }
 }

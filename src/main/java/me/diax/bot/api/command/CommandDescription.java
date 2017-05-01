@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api;
+package me.diax.bot.api.command;
 
-import me.diax.bot.api.channel.Channel;
+import me.diax.bot.api.PermissionLevel;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * Created by Comportment at 15:33 on 01/05/17
+ * Created by Comportment at 19:45 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public interface Message extends Identifiable {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CommandDescription {
 
-    User getAuthor();
+    String name();
 
-    Channel getChannel();
+    String[] triggers();
 
-    MessageContent getContent();
+    PermissionLevel minimumLevel() default PermissionLevel.DEFAULT;
 }

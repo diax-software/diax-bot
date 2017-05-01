@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api;
+package me.diax.bot.commands;
 
-import me.diax.bot.api.channel.Channel;
+import me.diax.bot.api.Message;
+import me.diax.bot.api.command.Command;
+import me.diax.bot.api.command.CommandDescription;
 
 /**
- * Created by Comportment at 15:33 on 01/05/17
+ * Created by Comportment at 19:46 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public interface Message extends Identifiable {
+@CommandDescription(name = "ping", triggers = {"ping"})
+public class Ping implements Command {
 
-    User getAuthor();
-
-    Channel getChannel();
-
-    MessageContent getContent();
+    @Override
+    public void execute(Message message, String args) {
+        message.getChannel().sendMessage("Pong!");
+    }
 }

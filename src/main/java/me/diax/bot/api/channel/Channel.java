@@ -29,6 +29,10 @@ public interface Channel extends Identifiable {
 
     void sendMessage(String message);
 
+    default void sendMessage(MessageContent content) {
+        sendMessage(content.getContent());
+    }
+
     default void sendMessages(String... messages) {
         for (String message : messages) {
             sendMessage(message);
@@ -39,9 +43,5 @@ public interface Channel extends Identifiable {
         for (MessageContent content : contents) {
             sendMessage(content);
         }
-    }
-
-    default void sendMessage(MessageContent content) {
-        sendMessage(content.getContent());
     }
 }
