@@ -24,9 +24,9 @@ package me.diax.bot.api.channel;
  */
 public abstract class AbstractChannel implements Channel {
 
-    protected long id;
+    private final long id;
 
-    public AbstractChannel(long id) {
+    AbstractChannel(long id) {
         this.id = id;
     }
 

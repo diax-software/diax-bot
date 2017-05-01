@@ -14,34 +14,24 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api.channel;
-
-import me.diax.bot.api.Identifiable;
-import me.diax.bot.api.MessageContent;
+package me.diax.bot.api;
 
 /**
- * Created by Comportment at 15:41 on 01/05/17
+ * Created by Comportment at 18:56 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public interface Channel extends Identifiable {
+public class MessageContentBuilder {
 
-    void sendMessage(String message);
+    private String content;
 
-    default void sendMessages(String... messages) {
-        for (String message : messages) {
-            sendMessage(message);
-        }
+    public MessageContentBuilder setContent(String content) {
+        this.content = content;
+        return this;
     }
 
-    default void sendMessages(MessageContent... contents) {
-        for (MessageContent content : contents) {
-            sendMessage(content);
-        }
-    }
-
-    default void sendMessage(MessageContent content) {
-        sendMessage(content.getContent());
+    public MessageContent build() {
+        return new MessageContent().setContent(content);
     }
 }

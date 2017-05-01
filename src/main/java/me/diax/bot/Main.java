@@ -23,6 +23,7 @@ import com.google.inject.Module;
 import com.knockturnmc.api.util.ConfigurationUtils;
 import me.diax.bot.api.bot.Bot;
 import me.diax.bot.api.bot.DiscordBot;
+import me.diax.bot.api.channel.Channel;
 import me.diax.bot.api.channel.DiscordChannel;
 
 import java.io.File;
@@ -58,9 +59,11 @@ public final class Main implements ComponentProvider, Module {
     }
 
     private void main() {
-        Bot bot = getInstance(DiscordBot.class);
+        Bot bot = this.getInstance(DiscordBot.class);
         bot.start();
-        new DiscordChannel(303542298594115584L, DiscordBot.getSHARDS()).sendMessage("owo");
+        Channel channel = new DiscordChannel(303542298594115584L, DiscordBot.getSHARDS()[0]);
+        channel.sendMessages("owo", "uwu", "dab <o/");
+        channel.sendMessage("memes");
     }
 
     @Override

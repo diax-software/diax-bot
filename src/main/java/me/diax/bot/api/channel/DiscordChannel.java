@@ -26,15 +26,15 @@ import net.dv8tion.jda.core.JDA;
  */
 public class DiscordChannel extends AbstractChannel {
 
-    private JDA[] shards;
+    private JDA jda;
 
-    public DiscordChannel(long id, JDA[] shards) {
+    public DiscordChannel(long id, JDA jda) {
         super(id);
-        this.shards = shards;
+        this.jda = jda;
     }
 
     @Override
     public void sendMessage(String message) {
-        shards[0].getTextChannelById(getId()).sendMessage(message).queue();
+        jda.getTextChannelById(getId()).sendMessage(message).queue();
     }
 }
