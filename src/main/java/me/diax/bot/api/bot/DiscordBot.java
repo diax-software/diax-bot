@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api;
+package me.diax.bot.api.bot;
 
-import com.google.inject.Inject;
+
+import me.diax.bot.DiaxProperties;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 
-import javax.inject.Named;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.Arrays;
 
 /**
@@ -30,14 +32,19 @@ import java.util.Arrays;
  *
  * @author Comportment
  */
+@Singleton
 public class DiscordBot extends AbstractBot {
 
     static JDA[] SHARDS = null;
     private String token;
 
     @Inject
-    public DiscordBot(@Named("token") String token) {
-        this.token = token;
+    public DiscordBot(DiaxProperties properties) {
+        this.token = properties.getDiscordToken();
+    }
+
+    public static JDA[] getSHARDS() {
+        return SHARDS;
     }
 
     @Override
@@ -63,14 +70,5 @@ public class DiscordBot extends AbstractBot {
         }
         Arrays.stream(SHARDS).forEach(JDA::shutdown);
         SHARDS = null;
-    }
-
-    @Override
-    public void sendMessage(String channel, String message) {
-        if (SHARDS == null) {
-            //Error...
-            return;
-        }
-        SHARDS[0].getTextChannelById(channel).sendMessage(message).queue();
     }
 }

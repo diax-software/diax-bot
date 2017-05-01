@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api;
+package me.diax.bot.api.bot;
 
 /**
- * Created by Comportment at 14:27 on 30/04/17
+ * Created by Comportment at 14:33 on 30/04/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public interface Bot {
-
-    void stop();
-
-    void start();
-
-    void sendMessage(String channel, String message);
+public abstract class AbstractBot implements Bot {
 }

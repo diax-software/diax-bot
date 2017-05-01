@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package me.diax.bot;
+package me.diax.bot.api.channel;
+
+import me.diax.bot.api.Identifiable;
 
 /**
- * Created by Comportment at 14:53 on 30/04/17
+ * Created by Comportment at 15:41 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-@FunctionalInterface
-public interface ComponentProvider {
+public interface Channel extends Identifiable {
 
-    <T> T getInstance(Class<T> type);
+    void sendMessage(String message);
 }

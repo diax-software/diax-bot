@@ -16,11 +16,19 @@
 
 package me.diax.bot.api;
 
+import me.diax.bot.api.channel.Channel;
+
 /**
- * Created by Comportment at 14:33 on 30/04/17
+ * Created by Comportment at 15:33 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public abstract class AbstractBot implements Bot {
+public interface Message extends Identifiable {
+
+    User getAuthor();
+
+    Channel getChannel();
+
+    String getContent();
 }

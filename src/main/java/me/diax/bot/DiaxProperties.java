@@ -16,14 +16,28 @@
 
 package me.diax.bot;
 
+import com.knockturnmc.api.util.NamedProperties;
+import com.knockturnmc.api.util.Property;
+
 /**
- * Created by Comportment at 14:53 on 30/04/17
+ * Created by Comportment at 16:50 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-@FunctionalInterface
-public interface ComponentProvider {
+public class DiaxProperties extends NamedProperties {
 
-    <T> T getInstance(Class<T> type);
+    @Property(value = "prefix")
+    private String prefix;
+
+    @Property(value = "discordToken")
+    private String discordToken;
+
+    public String getDiscordToken() {
+        return discordToken;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
 }

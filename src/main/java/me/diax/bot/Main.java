@@ -20,9 +20,14 @@ import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.name.Names;
-import me.diax.bot.api.Bot;
-import me.diax.bot.api.DiscordBot;
+import com.knockturnmc.api.util.ConfigurationUtils;
+import me.diax.bot.api.bot.Bot;
+import me.diax.bot.api.bot.DiscordBot;
+import me.diax.bot.api.channel.DiscordChannel;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Properties;
 
 /**
  * Created by Comportment at 14:52 on 30/04/17
@@ -32,9 +37,19 @@ import me.diax.bot.api.DiscordBot;
  */
 public final class Main implements ComponentProvider, Module {
 
+    private final DiaxProperties properties;
     private final Injector injector;
 
     private Main() {
+        Properties sys = System.getProperties();
+        Properties config = new Properties();
+        String[] fields = {"discordToken", "prefix"};
+        Arrays.stream(fields).forEach(field -> sys.computeIfPresent(field, config::put));
+        properties = ConfigurationUtils.loadConfiguration(
+                this.getClass().getClassLoader(),
+                "diax.properties",
+                new File(System.getProperty("user.dir")),
+                DiaxProperties.class);
         injector = Guice.createInjector(this);
     }
 
@@ -45,6 +60,7 @@ public final class Main implements ComponentProvider, Module {
     private void main() {
         Bot bot = getInstance(DiscordBot.class);
         bot.start();
+        new DiscordChannel(303542298594115584L, DiscordBot.getSHARDS()).sendMessage("owo");
     }
 
     @Override
@@ -55,6 +71,6 @@ public final class Main implements ComponentProvider, Module {
     @Override
     public void configure(Binder binder) {
         binder.bind(ComponentProvider.class).toInstance(this);
-        binder.bind(String.class).annotatedWith(Names.named("token")).toInstance("---");
+        binder.bind(DiaxProperties.class).toInstance(properties);
     }
 }

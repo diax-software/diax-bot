@@ -14,16 +14,27 @@
  * limitations under the License.
  */
 
-package me.diax.bot;
+package me.diax.bot.api.channel;
+
+import net.dv8tion.jda.core.JDA;
 
 /**
- * Created by Comportment at 14:53 on 30/04/17
+ * Created by Comportment at 15:58 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-@FunctionalInterface
-public interface ComponentProvider {
+public class DiscordChannel extends AbstractChannel {
 
-    <T> T getInstance(Class<T> type);
+    private JDA[] shards;
+
+    public DiscordChannel(long id, JDA[] shards) {
+        super(id);
+        this.shards = shards;
+    }
+
+    @Override
+    public void sendMessage(String message) {
+        shards[0].getTextChannelById(getId()).sendMessage(message).queue();
+    }
 }

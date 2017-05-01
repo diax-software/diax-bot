@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package me.diax.bot;
+package me.diax.bot.api;
 
 /**
- * Created by Comportment at 14:53 on 30/04/17
+ * Created by Comportment at 15:46 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-@FunctionalInterface
-public interface ComponentProvider {
+public interface Identifiable {
 
-    <T> T getInstance(Class<T> type);
+    long getId();
 }

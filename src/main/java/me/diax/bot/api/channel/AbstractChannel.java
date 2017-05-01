@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package me.diax.bot;
+package me.diax.bot.api.channel;
 
 /**
- * Created by Comportment at 14:53 on 30/04/17
+ * Created by Comportment at 15:59 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-@FunctionalInterface
-public interface ComponentProvider {
+public abstract class AbstractChannel implements Channel {
 
-    <T> T getInstance(Class<T> type);
+    protected long id;
+
+    public AbstractChannel(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public long getId() {
+        return id;
+    }
 }
