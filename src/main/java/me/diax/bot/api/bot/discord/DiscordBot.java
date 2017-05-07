@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api.bot;
+package me.diax.bot.api.bot.discord;
 
 
+import me.diax.bot.ComponentProvider;
 import me.diax.bot.DiaxProperties;
+import me.diax.bot.api.bot.AbstractBot;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -36,10 +38,12 @@ import java.util.Arrays;
 public class DiscordBot extends AbstractBot {
 
     static JDA[] SHARDS = null;
-    private String token;
+    private final String token;
+    private final ComponentProvider provider;
 
     @Inject
-    public DiscordBot(DiaxProperties properties) {
+    public DiscordBot(ComponentProvider provider, DiaxProperties properties) {
+        this.provider = provider;
         this.token = properties.getDiscordToken();
     }
 
@@ -55,7 +59,10 @@ public class DiscordBot extends AbstractBot {
         }
         JDA jda;
         try {
-            jda = new JDABuilder(AccountType.BOT).setToken(token).buildBlocking();
+            jda = new JDABuilder(AccountType.BOT)
+                    .setToken(token)
+                    .addEventListener(provider.getInstance(DiscordListener.class))
+                    .buildBlocking();
         } catch (Exception ignored) {
             jda = null;
         }

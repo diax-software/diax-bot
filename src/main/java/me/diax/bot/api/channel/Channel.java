@@ -27,6 +27,8 @@ import me.diax.bot.api.MessageContent;
  */
 public interface Channel extends Identifiable {
 
+    ChannelType getType();
+
     void sendMessage(String message);
 
     default void sendMessage(MessageContent content) {

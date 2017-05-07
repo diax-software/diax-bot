@@ -24,17 +24,19 @@ import net.dv8tion.jda.core.JDA;
  *
  * @author Comportment
  */
-public class DiscordChannel extends AbstractChannel {
+public abstract class DiscordChannel extends AbstractChannel {
 
-    private JDA jda;
+    protected JDA jda;
+    protected ChannelType type;
 
-    public DiscordChannel(long id, JDA jda) {
+    public DiscordChannel(long id, ChannelType type, JDA jda) {
         super(id);
         this.jda = jda;
+        this.type = type;
     }
 
     @Override
-    public void sendMessage(String message) {
-        jda.getTextChannelById(getId()).sendMessage(message).queue();
+    public ChannelType getType() {
+        return type;
     }
 }

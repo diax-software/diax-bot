@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api.command;
+package me.diax.bot.api.channel;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import net.dv8tion.jda.core.JDA;
 
 /**
- * Created by Comportment at 19:45 on 01/05/17
+ * Created by Comportment at 19:20 on 07/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-public @interface CommandDescription {
+public class DiscordPrivateChannel extends DiscordChannel {
 
-    String name();
+    public DiscordPrivateChannel(JDA jda, long id) {
+        super(id, ChannelType.PRIVATE, jda);
+    }
 
-    String[] triggers();
-
-    int args() default 0;
+    @Override
+    public void sendMessage(String message) {
+        jda.getPrivateChannelById(getId()).sendMessage(message).queue();
+    }
 }

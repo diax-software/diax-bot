@@ -31,4 +31,6 @@ public interface Message extends Identifiable {
     Channel getChannel();
 
     MessageContent getContent();
+
+
 }

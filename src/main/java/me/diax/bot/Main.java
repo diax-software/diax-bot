@@ -22,9 +22,10 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.knockturnmc.api.util.ConfigurationUtils;
 import me.diax.bot.api.bot.Bot;
-import me.diax.bot.api.bot.DiscordBot;
+import me.diax.bot.api.bot.discord.DiscordBot;
 import me.diax.bot.api.channel.Channel;
-import me.diax.bot.api.channel.DiscordChannel;
+import me.diax.bot.api.channel.DiscordPublicChannel;
+import me.diax.bot.api.command.CommandHandler;
 import me.diax.bot.api.command.CommandProvider;
 import me.diax.bot.api.command.Commands;
 
@@ -42,17 +43,18 @@ public final class Main implements ComponentProvider, Module {
 
     private final DiaxProperties properties;
     private final Injector injector;
+    private final CommandHandler handler;
 
     private Main() {
         Properties sys = System.getProperties();
         Properties config = new Properties();
-        String[] fields = {"discordToken", "prefix"};
-        Arrays.stream(fields).forEach(field -> sys.computeIfPresent(field, config::put));
+        Arrays.stream(DiaxProperties.getFields()).forEach(field -> sys.computeIfPresent(field, config::put));
         properties = ConfigurationUtils.loadConfiguration(
                 this.getClass().getClassLoader(),
                 "diax.properties",
                 new File(System.getProperty("user.dir")),
                 DiaxProperties.class);
+        handler = new CommandHandler();
         injector = Guice.createInjector(this);
     }
 
@@ -63,7 +65,7 @@ public final class Main implements ComponentProvider, Module {
     private void main() {
         Bot bot = this.getInstance(DiscordBot.class);
         bot.start();
-        Channel channel = new DiscordChannel(303542298594115584L, DiscordBot.getSHARDS()[0]);
+        Channel channel = new DiscordPublicChannel(DiscordBot.getSHARDS()[0], 303542298594115584L);
         channel.sendMessages("owo", "uwu", "dab <o/");
         channel.sendMessage("memes");
     }
@@ -78,5 +80,6 @@ public final class Main implements ComponentProvider, Module {
         binder.bind(ComponentProvider.class).toInstance(this);
         binder.bind(DiaxProperties.class).toInstance(properties);
         binder.bind(CommandProvider.class).to(Commands.class);
+        binder.bind(CommandHandler.class).toInstance(handler);
     }
 }

@@ -18,15 +18,30 @@ package me.diax.bot.api.command;
 
 import me.diax.bot.api.Message;
 
+import javax.inject.Singleton;
+
 /**
  * Created by Comportment at 21:10 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
+@Singleton
 public class CommandHandler {
 
-    void execute(Command command, Message message, String args) {
-        command.execute(message, args);
+    public CommandHandler() {
+    }
+
+    public void execute(Command command, Message message, String args) {
+        CommandDescription cd = command.getClass().getAnnotation(CommandDescription.class);
+        if (cd.args() > args.split(" ").length) {
+            return;
+        }
+        try {
+            command.execute(message, args);
+        } catch (Exception e) {
+            message.getChannel().sendMessage("An error has occurred.");
+            e.printStackTrace();
+        }
     }
 }

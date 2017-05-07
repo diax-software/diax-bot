@@ -14,25 +14,15 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api.command;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+package me.diax.bot.api.channel;
 
 /**
- * Created by Comportment at 19:45 on 01/05/17
+ * Created by Comportment at 19:17 on 07/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-public @interface CommandDescription {
+public enum ChannelType {
 
-    String name();
-
-    String[] triggers();
-
-    int args() default 0;
+    PRIVATE, PUBLIC
 }

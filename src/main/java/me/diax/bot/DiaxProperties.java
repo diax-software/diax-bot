@@ -33,11 +33,22 @@ public class DiaxProperties extends NamedProperties {
     @Property(value = "discordToken")
     private String discordToken;
 
+    @Property(value = "ownerID", defaultvalue = "293884638101897216")
+    private String ownerId;
+
+    static String[] getFields() {
+        return new String[]{"prefix", "discordToken", "ownerID"};
+    }
+
     public String getDiscordToken() {
         return discordToken;
     }
 
     public String getPrefix() {
         return prefix;
+    }
+
+    public long getOwnerId() {
+        return Long.valueOf(ownerId);
     }
 }
