@@ -24,14 +24,14 @@ package me.diax.bot.api.channel;
  */
 public abstract class AbstractChannel implements Channel {
 
-    private final long id;
+    private final String id;
 
-    AbstractChannel(long id) {
+    AbstractChannel(String id) {
         this.id = id;
     }
 
     @Override
-    public long getId() {
+    public String getId() {
         return id;
     }
 }

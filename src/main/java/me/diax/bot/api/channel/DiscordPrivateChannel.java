@@ -26,7 +26,7 @@ import net.dv8tion.jda.core.JDA;
  */
 public class DiscordPrivateChannel extends DiscordChannel {
 
-    public DiscordPrivateChannel(JDA jda, long id) {
+    public DiscordPrivateChannel(JDA jda, String id) {
         super(id, ChannelType.PRIVATE, jda);
     }
 

@@ -23,4 +23,8 @@ package me.diax.bot.api;
  * @author Comportment
  */
 public interface User extends Identifiable {
+
+    String getSimpleName();
+
+    String getLongName();
 }

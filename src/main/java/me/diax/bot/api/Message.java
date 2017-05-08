@@ -18,6 +18,8 @@ package me.diax.bot.api;
 
 import me.diax.bot.api.channel.Channel;
 
+import java.sql.Timestamp;
+
 /**
  * Created by Comportment at 15:33 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
@@ -32,5 +34,9 @@ public interface Message extends Identifiable {
 
     MessageContent getContent();
 
+    default String getContentAsString() {
+        return getContent().getContentAsString();
+    }
 
+    Timestamp getTimestamp();
 }

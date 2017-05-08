@@ -29,7 +29,7 @@ public abstract class DiscordChannel extends AbstractChannel {
     protected JDA jda;
     protected ChannelType type;
 
-    public DiscordChannel(long id, ChannelType type, JDA jda) {
+    public DiscordChannel(String id, ChannelType type, JDA jda) {
         super(id);
         this.jda = jda;
         this.type = type;

@@ -21,10 +21,10 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.knockturnmc.api.util.ConfigurationUtils;
-import me.diax.bot.api.bot.Bot;
-import me.diax.bot.api.bot.discord.DiscordBot;
+import me.diax.bot.api.bot.irc.IRCBot;
 import me.diax.bot.api.channel.Channel;
-import me.diax.bot.api.channel.DiscordPublicChannel;
+import me.diax.bot.api.channel.ChannelType;
+import me.diax.bot.api.channel.IRCChannel;
 import me.diax.bot.api.command.CommandHandler;
 import me.diax.bot.api.command.CommandProvider;
 import me.diax.bot.api.command.Commands;
@@ -63,11 +63,11 @@ public final class Main implements ComponentProvider, Module {
     }
 
     private void main() {
-        Bot bot = this.getInstance(DiscordBot.class);
+        IRCBot bot = this.getInstance(IRCBot.class);
         bot.start();
-        Channel channel = new DiscordPublicChannel(DiscordBot.getSHARDS()[0], 303542298594115584L);
+        Channel channel = new IRCChannel(bot.getSHARDS()[0], ChannelType.PRIVATE, "#diax");
+        //Channel channel = new DiscordPublicChannel((JDA) DiscordBot.getSHARDS()[0], 303542298594115584L);
         channel.sendMessages("owo", "uwu", "dab <o/");
-        channel.sendMessage("memes");
     }
 
     @Override

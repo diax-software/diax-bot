@@ -24,5 +24,5 @@ package me.diax.bot.api;
  */
 public interface Identifiable {
 
-    long getId();
+    String getId();
 }

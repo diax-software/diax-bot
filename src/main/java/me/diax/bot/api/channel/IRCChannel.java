@@ -16,34 +16,32 @@
 
 package me.diax.bot.api.channel;
 
-import me.diax.bot.api.Identifiable;
-import me.diax.bot.api.MessageContent;
+import me.diax.bot.api.bot.irc.PircIRCBot;
 
 /**
- * Created by Comportment at 15:41 on 01/05/17
+ * Created by Comportment at 20:32 on 08/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public interface Channel extends Identifiable {
+public class IRCChannel extends AbstractChannel {
 
-    ChannelType getType();
+    private ChannelType type;
+    private PircIRCBot bot;
 
-    void sendMessage(String message);
-
-    default void sendMessage(MessageContent content) {
-        sendMessage(content.getContentAsString());
+    public IRCChannel(PircIRCBot bot, ChannelType type, String id) {
+        super(id);
+        this.type = type;
+        this.bot = bot;
     }
 
-    default void sendMessages(String... messages) {
-        for (String message : messages) {
-            sendMessage(message);
-        }
+    @Override
+    public ChannelType getType() {
+        return type;
     }
 
-    default void sendMessages(MessageContent... contents) {
-        for (MessageContent content : contents) {
-            sendMessage(content);
-        }
+    @Override
+    public void sendMessage(String message) {
+        bot.sendMessage(getId(), message);
     }
 }

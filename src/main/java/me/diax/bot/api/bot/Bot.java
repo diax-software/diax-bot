@@ -24,7 +24,13 @@ package me.diax.bot.api.bot;
  */
 public interface Bot {
 
+    Object[] shards = null;
+
     void stop();
 
     void start();
+
+    default Object getSHARDS() {
+        return shards;
+    }
 }

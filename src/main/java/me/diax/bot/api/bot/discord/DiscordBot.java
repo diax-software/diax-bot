@@ -47,7 +47,7 @@ public class DiscordBot extends AbstractBot {
         this.token = properties.getDiscordToken();
     }
 
-    public static JDA[] getSHARDS() {
+    public JDA[] getSHARDS() {
         return SHARDS;
     }
 

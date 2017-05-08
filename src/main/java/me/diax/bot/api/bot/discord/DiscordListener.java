@@ -33,6 +33,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import javax.inject.Inject;
+import java.sql.Timestamp;
 
 /**
  * Created by Comportment at 17:09 on 07/05/17
@@ -60,20 +61,37 @@ public class DiscordListener extends ListenerAdapter {
         Message message = event.getMessage();
         String content = message.getRawContent();
         MessageChannel channel = message.getChannel();
+        ChannelType type = message.getChannelType();
         if (content.startsWith(p)) {
             content = content.replaceFirst(p, "");
         } else {
-            if (!channel.getType().equals(ChannelType.PRIVATE)) {
+            if (!type.equals(ChannelType.PRIVATE)) {
                 return;
             }
         }
-        Channel chan = (channel.getType().equals(ChannelType.PRIVATE) ? new DiscordPrivateChannel(event.getJDA(), channel.getIdLong()) : new DiscordPublicChannel(event.getJDA(), channel.getIdLong()));
+        Channel chan = (type.equals(ChannelType.PRIVATE) ? new DiscordPrivateChannel(event.getJDA(), channel.getId()) : new DiscordPublicChannel(event.getJDA(), channel.getId()));
         Command command = provider.newInstance(provider.find(content.split(" ")[0]));
         if (command == null) return;
+        net.dv8tion.jda.core.entities.User user = message.getAuthor();
         me.diax.bot.api.Message msg = new me.diax.bot.api.Message() {
             @Override
             public User getAuthor() {
-                return () -> event.getAuthor().getIdLong();
+                return new User() {
+                    @Override
+                    public String getSimpleName() {
+                        return user.getName();
+                    }
+
+                    @Override
+                    public String getLongName() {
+                        return user.getName() + "#" + user.getDiscriminator();
+                    }
+
+                    @Override
+                    public String getId() {
+                        return user.getDiscriminator();
+                    }
+                };
             }
 
             @Override
@@ -87,8 +105,13 @@ public class DiscordListener extends ListenerAdapter {
             }
 
             @Override
-            public long getId() {
-                return message.getIdLong();
+            public String getId() {
+                return message.getId();
+            }
+
+            @Override
+            public Timestamp getTimestamp() {
+                return new Timestamp(System.currentTimeMillis());
             }
         };
         handler.execute(command, msg, content.replaceFirst(content.split(" ")[0], ""));
