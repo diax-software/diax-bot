@@ -66,7 +66,7 @@ public final class Main implements ComponentProvider, Module {
     private void main() {
         IRCBot bot = new IRCBot(this);
         bot.start();
-        Channel channel = new IRCChannel((PircBotX) bot.getShards()[0], ChannelType.PRIVATE, "#diax");
+        Channel channel = new IRCChannel((PircBotX) bot.getShards()[0], ChannelType.PUBLIC, "#diax.me");
         channel.sendMessages("owo", "uwu", "dab <o/");
     }
 

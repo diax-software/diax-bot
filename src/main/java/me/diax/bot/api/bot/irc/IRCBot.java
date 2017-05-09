@@ -51,6 +51,7 @@ public class IRCBot extends AbstractBot {
         Configuration configuration = new Configuration.Builder()
                 .setRealName("Diax-Bot")
                 .setName("Diax")
+                .setLogin("Diax")
                 .setAutoNickChange(true)
                 .setAutoReconnect(true)
                 .addServer("irc.domirc.net")

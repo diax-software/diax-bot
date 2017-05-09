@@ -42,7 +42,6 @@ public class IRCChannel extends AbstractChannel {
 
     @Override
     public void sendMessage(String message) {
-        System.out.println(getId() + "\n" + message);
-        bot.send().message(getId(), message);
+        bot.sendIRC().message(getId(), message);
     }
 }
