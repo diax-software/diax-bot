@@ -54,7 +54,7 @@ public class IRCListener extends ListenerAdapter {
     public void onMessage(MessageEvent event) {
         String p = properties.getPrefix();
         String content = event.getMessage();
-        ChannelType type = ChannelType.PUBLIC;
+        ChannelType type = (event.getChannel().getName().startsWith("#") ? ChannelType.PUBLIC : ChannelType.PRIVATE);
         if (content.startsWith(p)) {
             content = content.replaceFirst(content, "");
             if ("".equals(content)) return;
@@ -64,9 +64,10 @@ public class IRCListener extends ListenerAdapter {
         Command command = provider.newInstance(provider.find(content.split(" ")[0]));
         System.out.println(provider.find(content.split(" ")[0]).name());
         if (command == null) return;
+        if (event.getUser() == null) return;
         Message message = new Message(
                 event.getId() + "",
-                new User(event.getUser().getLogin(), event.getUser().getNick(), event.getUser().getHostmask()),
+                new User(event.getUser().getIdent(), event.getUser().getNick(), event.getUser().getHostmask()),
                 new IRCChannel(event.getBot(), type, event.getChannel().getName()),
                 new MessageContentBuilder().setContent(event.getMessage()).build(),
                 new Timestamp(System.currentTimeMillis()));
