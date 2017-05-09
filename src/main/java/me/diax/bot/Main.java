@@ -28,6 +28,7 @@ import me.diax.bot.api.channel.IRCChannel;
 import me.diax.bot.api.command.CommandHandler;
 import me.diax.bot.api.command.CommandProvider;
 import me.diax.bot.api.command.Commands;
+import org.pircbotx.PircBotX;
 
 import java.io.File;
 import java.util.Arrays;
@@ -63,10 +64,9 @@ public final class Main implements ComponentProvider, Module {
     }
 
     private void main() {
-        IRCBot bot = this.getInstance(IRCBot.class);
+        IRCBot bot = new IRCBot(this);
         bot.start();
-        Channel channel = new IRCChannel(bot.getSHARDS()[0], ChannelType.PRIVATE, "#diax");
-        //Channel channel = new DiscordPublicChannel((JDA) DiscordBot.getSHARDS()[0], 303542298594115584L);
+        Channel channel = new IRCChannel((PircBotX) bot.getShards()[0], ChannelType.PRIVATE, "#diax");
         channel.sendMessages("owo", "uwu", "dab <o/");
     }
 

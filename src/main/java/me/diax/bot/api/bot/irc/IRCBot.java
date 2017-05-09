@@ -19,7 +19,11 @@ package me.diax.bot.api.bot.irc;
 import com.google.inject.Inject;
 import me.diax.bot.ComponentProvider;
 import me.diax.bot.api.bot.AbstractBot;
+import org.pircbotx.Configuration;
+import org.pircbotx.PircBotX;
+import org.pircbotx.exception.IrcException;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -30,7 +34,6 @@ import java.util.Arrays;
  */
 public class IRCBot extends AbstractBot {
 
-    PircIRCBot[] SHARDS = null;
     private ComponentProvider provider;
 
     @Inject
@@ -40,24 +43,26 @@ public class IRCBot extends AbstractBot {
 
     @Override
     public void stop() {
-        Arrays.stream(SHARDS).forEach(PircIRCBot::dispose);
-        SHARDS = null;
+        shards = null;
     }
 
     @Override
     public void start() {
-        PircIRCBot bot = provider.getInstance(PircIRCBot.class);
-        try {
-            bot.connect("irc.domirc.net");
-        } catch (Exception ignored) {
-        }
-        bot.joinChannel("##testing");
-        bot.joinChannel("#diax");
-        SHARDS = new PircIRCBot[]{bot};
-    }
-
-    @Override
-    public PircIRCBot[] getSHARDS() {
-        return SHARDS;
+        Configuration configuration = new Configuration.Builder()
+                .setRealName("Diax-Bot")
+                .setName("Diax")
+                .setAutoNickChange(true)
+                .setAutoReconnect(true)
+                .addServer("irc.domirc.net")
+                .addAutoJoinChannel("#diax.me")
+                .addListener(provider.getInstance(IRCListener.class))
+                .buildConfiguration();
+        shards = new PircBotX[]{new PircBotX(configuration)};
+        Arrays.stream(shards).forEach(bot -> {
+            try {
+                ((PircBotX) bot).startBot();
+            } catch (IOException | IrcException ignored) {
+            }
+        });
     }
 }

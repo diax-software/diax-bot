@@ -23,4 +23,11 @@ package me.diax.bot.api.bot;
  * @author Comportment
  */
 public abstract class AbstractBot implements Bot {
+
+    protected Object[] shards;
+
+    @Override
+    public Object[] getShards() {
+        return shards;
+    }
 }

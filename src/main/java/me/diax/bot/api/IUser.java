@@ -14,35 +14,17 @@
  * limitations under the License.
  */
 
-package me.diax.bot.api.channel;
-
-import org.pircbotx.PircBotX;
+package me.diax.bot.api;
 
 /**
- * Created by Comportment at 20:32 on 08/05/17
+ * Created by Comportment at 15:33 on 01/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public class IRCChannel extends AbstractChannel {
+public interface IUser extends Identifiable {
 
-    private ChannelType type;
-    private PircBotX bot;
+    String getSimpleName();
 
-    public IRCChannel(PircBotX bot, ChannelType type, String id) {
-        super(id);
-        this.type = type;
-        this.bot = bot;
-    }
-
-    @Override
-    public ChannelType getType() {
-        return type;
-    }
-
-    @Override
-    public void sendMessage(String message) {
-        System.out.println(getId() + "\n" + message);
-        bot.send().message(getId(), message);
-    }
+    String getLongName();
 }

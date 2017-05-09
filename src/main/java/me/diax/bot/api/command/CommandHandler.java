@@ -16,7 +16,7 @@
 
 package me.diax.bot.api.command;
 
-import me.diax.bot.api.Message;
+import me.diax.bot.api.IMessage;
 
 import javax.inject.Singleton;
 
@@ -32,7 +32,7 @@ public class CommandHandler {
     public CommandHandler() {
     }
 
-    public void execute(Command command, Message message, String args) {
+    public void execute(Command command, IMessage message, String args) {
         CommandDescription cd = command.getClass().getAnnotation(CommandDescription.class);
         if (cd.args() > args.split(" ").length) {
             return;

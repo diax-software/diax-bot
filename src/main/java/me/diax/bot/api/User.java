@@ -17,14 +17,35 @@
 package me.diax.bot.api;
 
 /**
- * Created by Comportment at 15:33 on 01/05/17
+ * Created by Comportment at 20:04 on 09/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public interface User extends Identifiable {
+public class User implements IUser {
 
-    String getSimpleName();
+    private String id;
+    private String simpleName;
+    private String longName;
 
-    String getLongName();
+    public User(String id, String simpleName, String longName) {
+        this.id = id;
+        this.simpleName = simpleName;
+        this.longName = longName;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String getSimpleName() {
+        return simpleName;
+    }
+
+    @Override
+    public String getLongName() {
+        return longName;
+    }
 }

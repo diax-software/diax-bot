@@ -37,7 +37,6 @@ import java.util.Arrays;
 @Singleton
 public class DiscordBot extends AbstractBot {
 
-    static JDA[] SHARDS = null;
     private final String token;
     private final ComponentProvider provider;
 
@@ -47,16 +46,8 @@ public class DiscordBot extends AbstractBot {
         this.token = properties.getDiscordToken();
     }
 
-    public JDA[] getSHARDS() {
-        return SHARDS;
-    }
-
     @Override
     public void start() {
-        if (SHARDS != null) {
-            //Error...
-            return;
-        }
         JDA jda;
         try {
             jda = new JDABuilder(AccountType.BOT)
@@ -66,16 +57,12 @@ public class DiscordBot extends AbstractBot {
         } catch (Exception ignored) {
             jda = null;
         }
-        SHARDS = new JDA[]{jda};
+        shards = new JDA[]{jda};
     }
 
     @Override
     public void stop() {
-        if (SHARDS == null) {
-            //Error...
-            return;
-        }
-        Arrays.stream(SHARDS).forEach(JDA::shutdown);
-        SHARDS = null;
+        Arrays.stream(shards).forEach(shard -> ((JDA) shard).shutdown());
+        shards = null;
     }
 }

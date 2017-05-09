@@ -26,9 +26,9 @@ import java.sql.Timestamp;
  *
  * @author Comportment
  */
-public interface Message extends Identifiable {
+public interface IMessage extends Identifiable {
 
-    User getAuthor();
+    IUser getAuthor();
 
     Channel getChannel();
 

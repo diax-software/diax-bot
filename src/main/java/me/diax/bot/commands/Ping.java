@@ -16,7 +16,7 @@
 
 package me.diax.bot.commands;
 
-import me.diax.bot.api.Message;
+import me.diax.bot.api.IMessage;
 import me.diax.bot.api.command.Command;
 import me.diax.bot.api.command.CommandDescription;
 
@@ -30,7 +30,7 @@ import me.diax.bot.api.command.CommandDescription;
 public class Ping implements Command {
 
     @Override
-    public void execute(Message message, String args) {
+    public void execute(IMessage message, String args) {
         message.getChannel().sendMessage("Pong!");
     }
 }

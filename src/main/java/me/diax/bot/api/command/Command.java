@@ -16,7 +16,7 @@
 
 package me.diax.bot.api.command;
 
-import me.diax.bot.api.Message;
+import me.diax.bot.api.IMessage;
 
 /**
  * Created by Comportment at 19:43 on 01/05/17
@@ -27,5 +27,5 @@ import me.diax.bot.api.Message;
 @FunctionalInterface
 public interface Command {
 
-    void execute(Message message, String args);
+    void execute(IMessage message, String args);
 }

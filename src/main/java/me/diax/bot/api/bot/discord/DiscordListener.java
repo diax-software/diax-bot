@@ -17,7 +17,6 @@
 package me.diax.bot.api.bot.discord;
 
 import me.diax.bot.DiaxProperties;
-import me.diax.bot.api.MessageContent;
 import me.diax.bot.api.MessageContentBuilder;
 import me.diax.bot.api.User;
 import me.diax.bot.api.channel.Channel;
@@ -73,47 +72,12 @@ public class DiscordListener extends ListenerAdapter {
         Command command = provider.newInstance(provider.find(content.split(" ")[0]));
         if (command == null) return;
         net.dv8tion.jda.core.entities.User user = message.getAuthor();
-        me.diax.bot.api.Message msg = new me.diax.bot.api.Message() {
-            @Override
-            public User getAuthor() {
-                return new User() {
-                    @Override
-                    public String getSimpleName() {
-                        return user.getName();
-                    }
-
-                    @Override
-                    public String getLongName() {
-                        return user.getName() + "#" + user.getDiscriminator();
-                    }
-
-                    @Override
-                    public String getId() {
-                        return user.getDiscriminator();
-                    }
-                };
-            }
-
-            @Override
-            public Channel getChannel() {
-                return chan;
-            }
-
-            @Override
-            public MessageContent getContent() {
-                return new MessageContentBuilder().setContent(message.getRawContent()).build();
-            }
-
-            @Override
-            public String getId() {
-                return message.getId();
-            }
-
-            @Override
-            public Timestamp getTimestamp() {
-                return new Timestamp(System.currentTimeMillis());
-            }
-        };
+        me.diax.bot.Message msg = new me.diax.bot.Message(
+                message.getId(),
+                new User(user.getId(), user.getName(), user.getName() + "#" + user.getDiscriminator()),
+                chan,
+                new MessageContentBuilder().setContent(message.getRawContent()).build(),
+                new Timestamp(System.currentTimeMillis()));
         handler.execute(command, msg, content.replaceFirst(content.split(" ")[0], ""));
     }
 }
