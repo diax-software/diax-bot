@@ -59,8 +59,22 @@
             <name>jcenter-bintray</name>
             <url>http://jcenter.bintray.com</url>
         </repository>
+        <repository>
+            <id>diax-release</id>
+            <name>Diax Releases</name>
+            <url>https://repo.knockturnmc.com/content/repositories/diax-release/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
     <dependencies>
+        <dependency>
+            <groupId>me.diax</groupId>
+            <artifactId>diax-srv-client</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
@@ -70,6 +84,16 @@
             <groupId>org.pircbotx</groupId>
             <artifactId>pircbotx</artifactId>
             <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Comportment</groupId>
+            <artifactId>JDA-Command</artifactId>
+            <version>1.0.2</version>
         </dependency>
     </dependencies>
 </project>

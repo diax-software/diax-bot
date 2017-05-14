@@ -39,6 +39,7 @@ public class IRCBot extends AbstractBot {
     @Inject
     public IRCBot(ComponentProvider provider) {
         this.provider = provider;
+        start();
     }
 
     @Override

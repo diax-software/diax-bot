@@ -54,7 +54,6 @@ public class IRCListener extends ListenerAdapter {
     public void onMessage(MessageEvent event) {
         String p = properties.getPrefix();
         String content = event.getMessage();
-        System.err.println(content.split(" ")[0]);
         ChannelType type = (event.getChannel().getName().startsWith("#") ? ChannelType.PUBLIC : ChannelType.PRIVATE);
         if (content.startsWith(p)) {
             content = content.replaceFirst(p, "");
@@ -65,7 +64,6 @@ public class IRCListener extends ListenerAdapter {
         Command command = provider.newInstance(provider.find(content.split(" ")[0]));
         if (command == null) return;
         if (event.getUser() == null) return;
-        System.err.println("checked");
         Message message = new Message(
                 event.getId() + "",
                 new User(event.getUser().getIdent(), event.getUser().getNick(), event.getUser().getHostmask()),

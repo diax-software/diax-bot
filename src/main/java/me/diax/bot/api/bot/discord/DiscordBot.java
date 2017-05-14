@@ -44,6 +44,7 @@ public class DiscordBot extends AbstractBot {
     public DiscordBot(ComponentProvider provider, DiaxProperties properties) {
         this.provider = provider;
         this.token = properties.getDiscordToken();
+        start();
     }
 
     @Override

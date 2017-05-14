@@ -21,14 +21,11 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.knockturnmc.api.util.ConfigurationUtils;
+import me.diax.bot.api.bot.discord.DiscordBot;
 import me.diax.bot.api.bot.irc.IRCBot;
-import me.diax.bot.api.channel.Channel;
-import me.diax.bot.api.channel.ChannelType;
-import me.diax.bot.api.channel.IRCChannel;
 import me.diax.bot.api.command.CommandHandler;
 import me.diax.bot.api.command.CommandProvider;
 import me.diax.bot.api.command.Commands;
-import org.pircbotx.PircBotX;
 
 import java.io.File;
 import java.util.Arrays;
@@ -64,10 +61,8 @@ public final class Main implements ComponentProvider, Module {
     }
 
     private void main() {
-        IRCBot bot = new IRCBot(this);
-        bot.start();
-        Channel channel = new IRCChannel((PircBotX) bot.getShards()[0], ChannelType.PUBLIC, "#diax.me");
-        channel.sendMessages("owo", "uwu", "dab <o/");
+        new DiscordBot(this, properties);
+        new IRCBot(this);
     }
 
     @Override
